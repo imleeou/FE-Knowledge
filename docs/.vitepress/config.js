@@ -3,7 +3,7 @@ export default {
   description: '前端知识、前端开发面试',
   lang:'zh',
   lastUpdated: true,
-  base:'/FE-Knowledge/',
+  base:'/',
   themeConfig: {
     socialLinks: [
       { icon: 'github', link: 'https://github.com/imleeou/FE-Knowledge' }
