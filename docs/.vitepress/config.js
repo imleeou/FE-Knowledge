@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   title: '前端开发知识库',
   description: '前端知识、前端开发面试',
   lang:'zh',
