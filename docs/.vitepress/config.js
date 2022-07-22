@@ -1,6 +1,6 @@
 export default {
   title: "前端开发知识库",
-  description: "前端知识、前端开发面试",
+  description: "前端知识、前端开发知识整理、前端开发面试、前端开发面试题大收集、前端面试集锦，适用于各阶段前端开发人员的知识库。",
   lang: "zh",
   lastUpdated: true,
   base: "/FE-Knowledge/",
@@ -8,6 +8,8 @@ export default {
     ['link', { rel: 'icon', href: './favicon.ico' }]
   ],
   themeConfig: {
+    logo: '../public/fe-icon.png',
+    lastUpdatedText: '最近更新时间',
     socialLinks: [
       { icon: "github", link: "https://github.com/imleeou/FE-Knowledge" },
     ],

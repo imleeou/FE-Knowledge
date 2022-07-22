@@ -1,11 +1,13 @@
 ---
 title: 前端
 layout: home
-footer: MIT Licensed | Copyright © 2019-present Evan You
+description: 前端知识、前端开发知识整理、前端开发面试、前端开发面试题大收集、前端面试集锦，适用于各阶段前端开发人员的知识库。
 hero:
   name: 前端开发知识库
   text: 学习绝不只是为了面试那三十分钟
   tagline: day day up...
+  image: 
+    src: /public/fe-icon.png
   actions:
     - theme: brand
       text: 立 即 开 始
