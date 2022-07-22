@@ -1,52 +1,69 @@
 export default {
-  title: '前端开发知识库',
-  description: '前端知识、前端开发面试',
-  lang:'zh',
+  title: "前端开发知识库",
+  description: "前端知识、前端开发面试",
+  lang: "zh",
   lastUpdated: true,
-  base:'/FE-Knowledge/',
+  base: "/FE-Knowledge/",
   themeConfig: {
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/imleeou/FE-Knowledge' }
+      { icon: "github", link: "https://github.com/imleeou/FE-Knowledge" },
     ],
-    nav:[
+    nav: [
       {
-        text: '首页',
-        link: '/'
+        text: "首页",
+        link: "/",
       },
       {
-        text: '题目知识',
-        activeMatch:'/interviewQuestion/',
-        link: '/interviewQuestion/index'
-      }
-    ],
-    sidebar:[
+        text: "必备知识",
+        activeMatch: "/necessary/",
+        link: "/necessary/index",
+      },
       {
-        text:'题目知识',
-        // collapsible: true,
-        items:[
-          {
-            text:'html相关',
-            link:'/interviewQuestion/html'
-          },
-          {
-            text:'javaScript相关',
-            link:'/interviewQuestion/javaScript'
-          },
-          {
-            text:'Vue2相关',
-            link:'/interviewQuestion/vue2'
-          },
-          {
-            text:'Vue3相关',
-            link:'/interviewQuestion/vue3'
-          }
-        ]
-      }
-      
+        text: "题目知识",
+        activeMatch: "/interviewQuestion/",
+        link: "/interviewQuestion/index",
+      },
     ],
-    footer:{
-      message:'Written by Leeou',
-      copyright:'收集自网络'
-    }
-  }
-}
+    sidebar: {
+      "/necessary/": [
+        {
+          text: "必备知识",
+          items: [
+            {
+              text: "网络基础",
+              link: "/necessary/network",
+            },
+          ],
+        },
+      ],
+      "/interviewQuestion/": [
+        {
+          text: "题目知识",
+          // collapsible: true,
+          items: [
+            {
+              text: "html相关",
+              link: "/interviewQuestion/html",
+            },
+            {
+              text: "javaScript相关",
+              link: "/interviewQuestion/javaScript",
+            },
+            {
+              text: "Vue2相关",
+              link: "/interviewQuestion/vue2",
+            },
+            {
+              text: "Vue3相关",
+              link: "/interviewQuestion/vue3",
+            },
+          ],
+        },
+      ],
+    },
+    footer: {
+      message: "Written by Leeou",
+      copyright: "收集自网络",
+    },
+  },
+};
