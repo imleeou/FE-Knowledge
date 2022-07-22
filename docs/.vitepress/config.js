@@ -4,6 +4,9 @@ export default {
   lang: "zh",
   lastUpdated: true,
   base: "/FE-Knowledge/",
+  head:[
+    ['link', { rel: 'icon', href: '/favicon.ico' }]
+  ],
   themeConfig: {
     socialLinks: [
       { icon: "github", link: "https://github.com/imleeou/FE-Knowledge" },
