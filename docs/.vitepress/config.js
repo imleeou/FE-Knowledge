@@ -8,7 +8,7 @@ export default {
     ['link', { rel: 'icon', href: './favicon.ico' }]
   ],
   themeConfig: {
-    logo: '../public/fe-icon.png',
+    logo: '/fe-icon.png',
     lastUpdatedText: '最近更新时间',
     socialLinks: [
       { icon: "github", link: "https://github.com/imleeou/FE-Knowledge" },

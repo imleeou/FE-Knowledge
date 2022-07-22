@@ -7,7 +7,7 @@ hero:
   text: 学习绝不只是为了面试那三十分钟
   tagline: day day up...
   image: 
-    src: /public/fe-icon.png
+    src: /fe-icon.png
   actions:
     - theme: brand
       text: 立 即 开 始
