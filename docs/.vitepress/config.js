@@ -38,6 +38,10 @@ export default {
               text: "网络基础",
               link: "/necessary/network",
             },
+            {
+              text: "代码提交规范",
+              link: "/necessary/codeSpecification",
+            },
           ],
         },
       ],
