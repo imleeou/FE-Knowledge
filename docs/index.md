@@ -10,10 +10,13 @@ hero:
     src: /fe-icon.png
   actions:
     - theme: brand
-      text: 立 即 开 始
+      text: 必备知识
+      link: /necessary/index
+    - theme: brand
+      text: 题目知识
       link: /interviewQuestion/index
     - theme: alt
-      text: View on GitHub
+      text: 查看 GitHub
       link: https://github.com/imleeou/FE-Knowledge
 features:
   - icon: ⭐️
