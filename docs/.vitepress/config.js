@@ -42,6 +42,10 @@ export default {
               text: "代码提交规范",
               link: "/necessary/codeSpecification",
             },
+            {
+              text: "Markdown官方教程",
+              link: "https://markdown.com.cn/",
+            },
           ],
         },
       ],
