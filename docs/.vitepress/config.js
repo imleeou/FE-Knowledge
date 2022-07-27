@@ -55,11 +55,11 @@ export default {
           // collapsible: true,
           items: [
             {
-              text: "html相关",
+              text: "HTML相关",
               link: "/interviewQuestion/html",
             },
             {
-              text: "javaScript相关",
+              text: "JavaScript相关",
               link: "/interviewQuestion/javaScript",
             },
             {
