@@ -59,6 +59,10 @@ export default {
               link: "/interviewQuestion/html",
             },
             {
+              text: "css相关",
+              link: "/interviewQuestion/css",
+            },
+            {
               text: "JavaScript相关",
               link: "/interviewQuestion/javaScript",
             },
