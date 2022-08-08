@@ -1,15 +1,19 @@
 export default {
   title: "前端开发知识库",
-  description: "前端知识、前端开发知识整理、前端开发面试、前端开发面试题大收集、前端面试集锦，适用于各阶段前端开发人员的知识库。",
+  description:
+    "前端知识、前端开发知识整理、前端开发面试、前端开发面试题大收集、前端面试集锦，适用于各阶段前端开发人员的知识库。",
   lang: "zh",
   lastUpdated: true,
   base: "/FE-Knowledge/",
-  head:[
-    ['link', { rel: 'icon', href: './favicon.ico' }]
-  ],
+  head: [["link", { rel: "icon", href: "./favicon.ico" }]],
   themeConfig: {
-    logo: '/fe-icon.png',
-    lastUpdatedText: '最近更新时间',
+    logo: "/fe-icon.png",
+    lastUpdatedText: "最近更新时间",
+    algolia: {
+      appId: "QDTCGPKDK2",
+      apiKey: "4c8a22cb8d40de818d3acf3566eadb55",
+      indexName: "fe-knowledge",
+    },
     socialLinks: [
       { icon: "github", link: "https://github.com/imleeou/FE-Knowledge" },
     ],
