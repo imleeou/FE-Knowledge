@@ -1,6 +1,6 @@
 # Vue2相关面试题
 
-## v-if 和 v-show 的区别
+## v-if 和 v-show 的区别{#v-if-and-v-show-difference}
 
 - v-show 只是简单的控制元素的 display 属性，而 v-if 才是条件渲染（条件为真，元素将会被渲染，条件为假，元素会被销毁）
 - v-show 有更高的首次渲染开销，而 v-if 的首次渲染开销要小的多
@@ -9,7 +9,7 @@
 - v-if 可以搭配 template 使用，而 v-show 不行
 
 
-## $router 和 $route 的区别
+## $router 和 $route 的区别{#router-and-route-difference}
 
 - **$router**是VueRouter的一个对象，通过Vue.use(VueRouter)和VueRouter构造函数得到一个router的实例对象，这个对象中是一个全局的对象，他包含了所有的路由包含了许多关键的对象和属性。相当于一个全局的路由器对象，里面含有很多属性和子对象。
 
@@ -19,7 +19,7 @@
 
 ![An image](/images/$route.png)
 
-## 什么是SPA？
+## 什么是SPA？{#what-is-spa}
 
 ***单页Web应用（single page web application，SPA）***，就是只有一张Web页面的应用。单页应用程序 (SPA) 是加载单个 HTML 页面并在用户与应用程序交互时动态更新该页面的 Web 应用程序。浏览器一开始会加载必需的 HTML 、 CSS 和 JavaScript ，所有的操作都在这张页面上完成，都由 JavaScript 来控制。
 
@@ -41,7 +41,7 @@
 1. `初次加载耗时多`
 为实现单页Web应用功能及显示效果，需要在加载页面的时候将JavaScript、CSS统一加载，部分页面可以在需要的时候加载。所以必须对JavaScript及CSS代码进行合并压缩处理；
 
-## 如何实现路由懒加载？
+## 如何实现路由懒加载？{#router-lazy-loading}
 
 ### 为什么需要路由懒加载？
 
@@ -73,7 +73,7 @@ const UserDetails = () =>
 不要在路由中使用异步组件。异步组件仍然可以在路由组件中使用，但路由组件本身就是动态导入的。
 :::
 
-## hash和history路由模式的区别
+## hash和history路由模式的区别{#hash-and-history-route}
 
 ### - hash模式
 

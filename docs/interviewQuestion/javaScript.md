@@ -1,11 +1,11 @@
 # JavaScript 相关面试题
 
-## JS 基本数据类型与引用数据类型有哪些？
+## JS 基本数据类型与引用数据类型有哪些？{#js-data-type}
 
 - 基本数据类型：String、Number、Boolean、Null、undefined、Symbol
 - 引用数据类型：Array、Function、RegExp、Date 等
 
-## 基本数据类型与引用数据类型的区别有哪些？
+## 基本数据类型与引用数据类型的区别有哪些？{#js-data-type-difference}
 
 基本数据类型存储在栈（Stack）内存中，引用数据类型存储在堆（Heap）内存中。
 
@@ -13,7 +13,7 @@
 
 引用数据类型存放在堆中，变量在栈中保存的是指向堆内存的地址值，这个地址值指向对应的对象类型，访问堆内存中的对象是通过地址值访问的。
 
-## 常用数组去重的方法
+## 常用数组去重的方法{#array-unique}
 
 ```js
 const arr = [1, 12, 24, 41, 43, 101, 12, 41];
@@ -96,7 +96,7 @@ const removeDuplicate = (array) => {
 };
 ```
 
-## 常用数组排序方法
+## 常用数组排序方法{#array-sort}
 
 ```js
 const arr = [10010, 1, 12, 24, 41, 43, 101, 10086, 12];
@@ -159,7 +159,7 @@ const sortArray = (array) => {
 };
 ```
 
-## JS 存储对象（localStorage 和 sessionStorage）
+## JS 存储对象（localStorage 和 sessionStorage）{#web-storage}
 
 Web 存储 API 提供了 `sessionStorage` （会话存储） 和 `localStorage`（本地存储）两个存储对象来对网页的数据进行添加、删除、修改、查询操作。
 
@@ -180,7 +180,7 @@ Web 存储 API 提供了 `sessionStorage` （会话存储） 和 `localStorage`�
 | removeItem(keyname) | 移除键 |
 | clear() | 清除存储对象中所有的键 |
 
-## Cookie
+## Cookie{#cookie}
 
 `Cookie` 是客户端与服务器端进行会话使用的一个能够在浏览器本地化存储的技术。简言之，cookie 是服务器端发给客户端的文本文件,但只能储存 4kb 的数据;目的是用于辨别用户身份，记录跟踪购物车的商品信息（如数量）、记录用户访问次数等。
 
@@ -190,7 +190,7 @@ Web 存储 API 提供了 `sessionStorage` （会话存储） 和 `localStorage`�
 客户端请求服务器时，如果服务器需要记录该用户状态，就使用 response 向客户端浏览器颁发一个 Cookie。而客户端浏览器会把 Cookie 保存起来。当浏览器再请求服务器时，浏览器把请求的网址连同该 Cookie 一同提交给服务器。服务器通过检查该 Cookie 来获取用户状态。
 :::
 
-## 箭头函数和普通函数有什么区别？
+## 箭头函数和普通函数有什么区别？{#arrow-function}
 
 1. 箭头函数比普通函数更加简洁，如果没有参数，就直接写一个空括号即可，如果只有一个参数，可以省去参数括号，如果有多个参数，用逗号分，如果函数体的返回值只有一句，可以省略大括号，如果函数体不需要返回值，且只有一句话，可以给这个语句前面加一个 void 关键字。最常用的就是调用一个函数：let fn = () => void doesNotReturn()
 
@@ -211,7 +211,7 @@ Web 存储 API 提供了 `sessionStorage` （会话存储） 和 `localStorage`�
 
 <!-- TODO: -->
 
-## JS 事件循环(event loop)
+## JS 事件循环(event loop){#event-loop}
 
 JavaScript 语言的一大特点就是**_单线程_**。作为浏览器脚本语言，JavaScript 的主要用途是与用户互动，以及操作 DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定 JavaScript 同时有两个线程，一个线程在某个 DOM 节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？
 
@@ -247,7 +247,7 @@ JavaScript 语言的一大特点就是**_单线程_**。作为浏览器脚本语
 >
 > https://vue3js.cn/interview/JavaScript/event_loop.html
 
-## 哪些是宏任务，哪些是微任务？
+## 哪些是宏任务，哪些是微任务？{#micro-task-macro-task}
 
 ### 宏任务（macro-task）:
 
@@ -273,7 +273,7 @@ JavaScript 语言的一大特点就是**_单线程_**。作为浏览器脚本语
 
 - MutationObserver(html5 新特性)
 
-## 节流和防抖
+## 节流和防抖{#throttle-debounce}
 
 ### 节流（throttle）
 
@@ -314,7 +314,7 @@ const debounce = (func, wait = 1000) => {
 };
 ```
 
-## for...of 和 for...in 的区别
+## for...of 和 for...in 的区别{#for-of-for-in}
 
 两者都可以用于遍历，不过 for in 遍历的是数组的索引（index），而 for of 遍历的是数组元素值（value）。
 
@@ -396,7 +396,7 @@ for (const v of obj) {
   如果要通过 for...of 循环，获取数组的索引，可以借助数组实例的 entries 方法和 keys 方法。
   :::
 
-## 事件冒泡和事件捕获
+## 事件冒泡和事件捕获{#event-bubbling-event-capturing}
 
 ### 事件冒泡（bubbling）
 
@@ -455,7 +455,7 @@ elem.addEventListener(..., true)
 > - 如果为 false（默认值），则在冒泡阶段设置处理程序。
 > - 如果为 true，则在捕获阶段设置处理程序。
 
-## 什么是闭包?闭包的作用是什么？
+## 什么是闭包?闭包的作用是什么？{#closure}
 
 当一个内部函数被调用，就会形成闭包，闭包就是能够读取其他函数内部变量的函数。
 
@@ -463,7 +463,7 @@ elem.addEventListener(..., true)
 
 局部变量无法共享和长久的保存，而全局变量可能造成变量污染，所以我们希望有一种机制既可以长久的保存变量又不会造成全局污染。
 
-## typeof 和 instanceof 的使用和区别
+## typeof 和 instanceof 的使用和区别{#typeof-instanceof}
 
 `typeof`与`instanceof`都是判断数据类型的方法。
 

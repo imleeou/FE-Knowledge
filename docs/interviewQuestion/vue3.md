@@ -1,6 +1,6 @@
 # Vue3相关面试题
 
-## ref 和 reactive 的区别
+## ref 和 reactive 的区别{#ref-and-reactive-difference}
 
 reactive更适合定义复杂的数据类型（json/arr）、ref适合定义基本数据类型（可接收基本数据类型和对象）
 
@@ -20,7 +20,7 @@ ref(1) -> reactive({ value: 1 })
 1. 它的响应式是更加‘深层次’的，底层本质是将传入的数据包装成一个Proxy。
 2. 参数必须是对象或者数组，如果要让对象的某个元素实现响应式时比较麻烦。需要使用toRefs
 
-## options api 和 composition api 的区别
+## options api 和 composition api 的区别{#options-api-and-composition-api}
 
 通常使用Vue2开发的项目，普遍会存在以下问题：
 

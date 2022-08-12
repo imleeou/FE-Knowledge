@@ -1,10 +1,10 @@
 # HTML相关面试题
-## html5 有哪些新增标签？ {#html5NewTags}
+## html5 有哪些新增标签？{#html5-new-tags}
 
 ```html
 <article>、<aside>、<audio>、<bdi>、<canvas>、<dialog>、<mark>、<meter>、<nav>、<time>、<rt>等。
 ```
-## 浏览器渲染机制 {#browser-render}
+## 浏览器渲染机制{#browser-render}
 浏览器使用流式布局模型 (Flow Based Layout)
 1. 解析HTML 生成 DOM 树
 2. 解析CSS 生成CSSOM 规则树
@@ -14,7 +14,7 @@
 6. 将渲染树每个节点绘制到屏幕
 
 ![browser-render](/images/browser-render.png)
-## 回流与重绘 (Reflow & Repaint) {#reflow-repaint}
+## 回流与重绘 (Reflow & Repaint){#reflow-repaint}
 
 在页面初始[`渲染阶段`](#browser-render)，回流不可避免的触发，可以理解成页面一开始是空白的元素，后面添加了新的元素使页面布局发生改变
 
@@ -70,7 +70,7 @@
 
 **当你获取布局信息的操作的时候，浏览器不得不清空队列，触发回流重绘来返回正确的值。**
 
-## 如何减少回流重绘？
+### 如何减少回流重绘？
 
 - 如果想设定元素的样式，通过改变元素的 class 类名 (尽可能在 DOM 树的最里层)
 - 避免设置多项内联样式
