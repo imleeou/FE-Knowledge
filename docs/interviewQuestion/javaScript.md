@@ -574,8 +574,6 @@ getType(/123/g)      //"RegExp" toString返回
 
 > 引用地址
 > https://github.com/febobo/web-interview/issues/65
-
-/** TODO: */
 ## 浏览器垃圾回收机制 {#browser-garbage-collection}
 
 在JavaScript中，数据类型分为两类，[基本类型和引用类型](#js-data-type)，而对于栈的内存空间，只保存简单数据类型的内存，由操作系统自动分配和自动释放。而堆空间中的内存，由于大小不固定，系统无法无法进行自动释放，这个时候就需要JS引擎来手动的释放这些内存。

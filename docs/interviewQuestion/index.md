@@ -22,6 +22,7 @@
   - [事件冒泡和事件捕获](./javaScript#event-bubbling-event-capturing)
   - [什么是闭包?闭包的作用是什么？](./javaScript#closure)
   - [typeof 和 instanceof 的使用和区别](./javaScript#typeof-instanceof)
+  - [浏览器垃圾回收机制](./javaScript#browser-garbage-collection)
 ## [Vue2相关](./vue2)
   - [v-if 和 v-show 的区别](./vue2#v-if-and-v-show-difference)
   - [$router 和 $route 的区别](./vue2#router-and-route-difference)
