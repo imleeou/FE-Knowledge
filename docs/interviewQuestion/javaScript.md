@@ -469,23 +469,23 @@ elem.addEventListener(..., true)
 
 ### typeof
 
-`typeof` 是一个一元操作符不是函数，所以不需要传递参数，使用方法非常简单：typeof A，使用typeof会直接返回类型结果
+`typeof` 是一个一元操作符不是函数，所以不需要传递参数，使用方法非常简单：typeof A，使用 typeof 会直接返回类型结果
 
 ```js
 const fn = () => {};
 const arr = [1, 2, "a"];
-console.log(typeof 1314);               // number
-console.log(typeof "");                 // string
-console.log(typeof false);              // boolean
-console.log(typeof undefined);          // undefined
-console.log(typeof null);               // object
-console.log(typeof {});                 // object
-console.log(typeof fn);                 // function
-console.log(typeof arr);                // object
-console.log(typeof Symbol("symbol"));   // symbol
+console.log(typeof 1314); // number
+console.log(typeof ""); // string
+console.log(typeof false); // boolean
+console.log(typeof undefined); // undefined
+console.log(typeof null); // object
+console.log(typeof {}); // object
+console.log(typeof fn); // function
+console.log(typeof arr); // object
+console.log(typeof Symbol("symbol")); // symbol
 ```
 
-js 在底层存储变量的时候，会在变量的机器码的低位1-3位存储其类型信息
+js 在底层存储变量的时候，会在变量的机器码的低位 1-3 位存储其类型信息
 
 - 000：对象
 - 010：浮点数
@@ -493,11 +493,12 @@ js 在底层存储变量的时候，会在变量的机器码的低位1-3位存�
 - 110：布尔
 - 1：整数
 
-但是undefined 和 null 这两个值却比较特殊。
-1. null：null的机器码是0，所以typeof null返回object
+但是 undefined 和 null 这两个值却比较特殊。
+
+1. null：null 的机器码是 0，所以 typeof null 返回 object
 2. undefined：用 −2^30 整数来表示
 
- **typeof** 判断函数返回结果就是函数，这其实还好理解，函数也是对象，因为函数比较重要，有自己特殊的属性，所以我们用 **typeof** 判断函数时会区分与对象，单独显示。
+**typeof** 判断函数返回结果就是函数，这其实还好理解，函数也是对象，因为函数比较重要，有自己特殊的属性，所以我们用 **typeof** 判断函数时会区分与对象，单独显示。
 但是万一我们要判断这个实例属于哪个对象，那显然这时 **typeof** 已经失去作用了，因为除了函数，它都会判断为对象，这时我们就需要用到`instanceof`了。
 
 ### instanceof
@@ -506,16 +507,17 @@ js 在底层存储变量的时候，会在变量的机器码的低位1-3位存�
 
 ```js
 // object为实例对象，constructor为构造函数
-object instanceof constructor
+object instanceof constructor;
 
 // 构造函数通过new可以实例对象，instanceof 能判断这个对象是否是之前那个构造函数生成的对象
 ```
-instanceof的判断就是根据原型链进行搜寻，在对象obj1的原型链上如果存在另一个对象obj2的原型属性，那么表达式（obj1 instanceof obj2）返回值为true；否则返回false。
+
+instanceof 的判断就是根据原型链进行搜寻，在对象 obj1 的原型链上如果存在另一个对象 obj2 的原型属性，那么表达式（obj1 instanceof obj2）返回值为 true；否则返回 false。
 
 ```js
-function Parent(){};
-function Child(){};
-function Other(){};
+function Parent() {}
+function Child() {}
+function Other() {}
 
 Child.prototype = new Parent();
 let child = new Child();
@@ -525,92 +527,100 @@ child instanceof Parent; // true
 child instanceof Object; // true
 child instanceof Other; // false
 ```
+
 ### typeof 和 instanceof 的区别
 
-1. typeof会返回一个变量的基本类型，instanceof返回的是一个布尔值
+1. typeof 会返回一个变量的基本类型，instanceof 返回的是一个布尔值
 2. instanceof 可以准确地判断复杂引用数据类型，但是不能正确判断基础数据类型
-3. 而typeof 也存在弊端，它虽然可以判断基础数据类型（null 除外），但是引用数据类型中，除了function 类型以外，其他的也无法判断
+3. 而 typeof 也存在弊端，它虽然可以判断基础数据类型（null 除外），但是引用数据类型中，除了 function 类型以外，其他的也无法判断
 
-上述两种方法都有弊端，并不能满足所有场景的需求,如果需要通用检测数据类型，可以采用Object.prototype.toString，调用该方法，统一返回格式“[object Xxx]” 的字符串。
+上述两种方法都有弊端，并不能满足所有场景的需求,如果需要通用检测数据类型，可以采用 Object.prototype.toString，调用该方法，统一返回格式“[object Xxx]” 的字符串。
 
 如下
+
 ```js
-Object.prototype.toString({})       // "[object Object]"
-Object.prototype.toString.call({})  // 同上结果，加上call也ok
-Object.prototype.toString.call(1)    // "[object Number]"
-Object.prototype.toString.call('1')  // "[object String]"
-Object.prototype.toString.call(true)  // "[object Boolean]"
-Object.prototype.toString.call(function(){})  // "[object Function]"
-Object.prototype.toString.call(null)   //"[object Null]"
-Object.prototype.toString.call(undefined) //"[object Undefined]"
-Object.prototype.toString.call(/123/g)    //"[object RegExp]"
-Object.prototype.toString.call(new Date()) //"[object Date]"
-Object.prototype.toString.call([])       //"[object Array]"
-Object.prototype.toString.call(document)  //"[object HTMLDocument]"
-Object.prototype.toString.call(window)   //"[object Window]"
+Object.prototype.toString({}); // "[object Object]"
+Object.prototype.toString.call({}); // 同上结果，加上call也ok
+Object.prototype.toString.call(1); // "[object Number]"
+Object.prototype.toString.call("1"); // "[object String]"
+Object.prototype.toString.call(true); // "[object Boolean]"
+Object.prototype.toString.call(function () {}); // "[object Function]"
+Object.prototype.toString.call(null); //"[object Null]"
+Object.prototype.toString.call(undefined); //"[object Undefined]"
+Object.prototype.toString.call(/123/g); //"[object RegExp]"
+Object.prototype.toString.call(new Date()); //"[object Date]"
+Object.prototype.toString.call([]); //"[object Array]"
+Object.prototype.toString.call(document); //"[object HTMLDocument]"
+Object.prototype.toString.call(window); //"[object Window]"
 ```
 
-了解了toString的基本用法，下面就实现一个全局通用的数据类型判断方法。
-  
+了解了 toString 的基本用法，下面就实现一个全局通用的数据类型判断方法。
+
 ```js
-function getType(obj){
-  let type  = typeof obj;
-  if (type !== "object") {    // 先进行typeof判断，如果是基础数据类型，直接返回
+function getType(obj) {
+  let type = typeof obj;
+  if (type !== "object") {
+    // 先进行typeof判断，如果是基础数据类型，直接返回
     return type;
   }
   // 对于typeof返回结果是object的，再进行如下的判断，正则返回结果
-  return Object.prototype.toString.call(obj).replace(/^\[object (\S+)\]$/, '$1'); 
+  return Object.prototype.toString
+    .call(obj)
+    .replace(/^\[object (\S+)\]$/, "$1");
 }
 
-getType([])     // "Array" typeof []是object，因此toString返回
-getType('123')  // "string" typeof 直接返回
-getType(window) // "Window" toString返回
-getType(null)   // "Null"首字母大写，typeof null是object，需toString来判断
-getType(undefined)   // "undefined" typeof 直接返回
-getType()            // "undefined" typeof 直接返回
-getType(function(){}) // "function" typeof能判断，因此首字母小写
-getType(/123/g)      //"RegExp" toString返回
+getType([]); // "Array" typeof []是object，因此toString返回
+getType("123"); // "string" typeof 直接返回
+getType(window); // "Window" toString返回
+getType(null); // "Null"首字母大写，typeof null是object，需toString来判断
+getType(undefined); // "undefined" typeof 直接返回
+getType(); // "undefined" typeof 直接返回
+getType(function () {}); // "function" typeof能判断，因此首字母小写
+getType(/123/g); //"RegExp" toString返回
 ```
 
 > 引用地址
 > https://github.com/febobo/web-interview/issues/65
+
 ## 浏览器垃圾回收机制 {#browser-garbage-collection}
 
-在JavaScript中，数据类型分为两类，[基本类型和引用类型](#js-data-type)，而对于栈的内存空间，只保存简单数据类型的内存，由操作系统自动分配和自动释放。而堆空间中的内存，由于大小不固定，系统无法无法进行自动释放，这个时候就需要JS引擎来手动的释放这些内存。
+在 JavaScript 中，数据类型分为两类，[基本类型和引用类型](#js-data-type)，而对于栈的内存空间，只保存简单数据类型的内存，由操作系统自动分配和自动释放。而堆空间中的内存，由于大小不固定，系统无法无法进行自动释放，这个时候就需要 JS 引擎来手动的释放这些内存。
 
 ### 为什么需要垃圾回收？
 
-在Chrome中，v8被限制了内存的使用（64位约1.4G/1464MB ， 32位约0.7G/732MB），为什么要限制呢？
+在 Chrome 中，v8 被限制了内存的使用（64 位约 1.4G/1464MB ， 32 位约 0.7G/732MB），为什么要限制呢？
 
-- 表层原因是，V8最初为浏览器而设计，不太可能遇到用大量内存的场景
-- 深层原因是，V8的垃圾回收机制的限制（如果清理大量的内存垃圾是很耗时间，这样回引起JavaScript线程暂停执行的时间，那么性能和应用直线下降）
+- 表层原因是，V8 最初为浏览器而设计，不太可能遇到用大量内存的场景
+- 深层原因是，V8 的垃圾回收机制的限制（如果清理大量的内存垃圾是很耗时间，这样回引起 JavaScript 线程暂停执行的时间，那么性能和应用直线下降）
 
-前面说到栈内的内存，操作系统会自动进行内存分配和内存释放，而堆中的内存，由JS引擎（如Chrome的V8）手动进行释放，当我们的代码没有按照正确的写法时，会使得JS引擎的垃圾回收机制无法正确的对内存进行释放（内存泄露），从而使得浏览器占用的内存不断增加，进而导致JavaScript和应用、操作系统性能下降。
+前面说到栈内的内存，操作系统会自动进行内存分配和内存释放，而堆中的内存，由 JS 引擎（如 Chrome 的 V8）手动进行释放，当我们的代码没有按照正确的写法时，会使得 JS 引擎的垃圾回收机制无法正确的对内存进行释放（内存泄露），从而使得浏览器占用的内存不断增加，进而导致 JavaScript 和应用、操作系统性能下降。
 
 :::info 内存泄露
 对于持续运行的服务进程（daemon），必须及时释放不再用到的内存。否则，内存占用越来越高，轻则影响系统性能，重则导致进程崩溃。由于某种原因没有被释放仍然被不必要的占有，就叫做**内存泄漏**（memory leak）。
 :::
 
 ### 内存生命周期
+
 不管什么程序语言，内存生命周期基本是一致的：
+
 1. 分配你所需要的内存
 2. 使用分配到的内存（读、写）
 3. 不需要时将其释/归还
 
-与其他需要手动管理内存的语言不通，在JavaScript中，当我们创建变量（对象，字符串等）的时候，系统会自动给对象分配对应的内存。当系统发现这些变量不再被使用的时候，会自动释放（垃圾回收）这些变量的内存，开发者不用过多的关心内存问题。
+与其他需要手动管理内存的语言不通，在 JavaScript 中，当我们创建变量（对象，字符串等）的时候，系统会自动给对象分配对应的内存。当系统发现这些变量不再被使用的时候，会自动释放（垃圾回收）这些变量的内存，开发者不用过多的关心内存问题。
 
 ### 内存回收
 
-JavaScript有自动垃圾收集机制，垃圾收集器会每隔一段时间就执行一次释放操作，找出那些不再继续使用的值，然后释放其占用的内存。
+JavaScript 有自动垃圾收集机制，垃圾收集器会每隔一段时间就执行一次释放操作，找出那些不再继续使用的值，然后释放其占用的内存。
 
 - 局部变量和全局变量的销毁
   - **局部变量**：局部作用域中，当函数执行完毕，局部变量也就没有存在的必要了，因此垃圾收集器很容易做出判断并回收。
   - **全局变量**：全局变量什么时候需要自动释放内存空间则很难判断，所以在开发中尽量避免使用全局变量。
-- 以Google的V8引擎为例，V8引擎中所有的JS对象都是通过堆来进行内存分配的
-  - **初始分配**：当声明变量并赋值时，V8引擎就会在堆内存中分配给这个变量。
-  - **继续申请**：当已申请的内存不足以存储这个变量时，V8引擎就会继续申请内存，直到堆的大小达到了V8引擎的内存上限为止。
-- V8引擎对堆内存中的JS对象进行分代管理
-  - **新生代**：存活周期较短的JS对象，如临时变量、字符串等。
+- 以 Google 的 V8 引擎为例，V8 引擎中所有的 JS 对象都是通过堆来进行内存分配的
+  - **初始分配**：当声明变量并赋值时，V8 引擎就会在堆内存中分配给这个变量。
+  - **继续申请**：当已申请的内存不足以存储这个变量时，V8 引擎就会继续申请内存，直到堆的大小达到了 V8 引擎的内存上限为止。
+- V8 引擎对堆内存中的 JS 对象进行分代管理
+  - **新生代**：存活周期较短的 JS 对象，如临时变量、字符串等。
   - **老生代**：经过多次垃圾回收仍然存活，存活周期较长的对象，如主控制器、服务器对象等。
 
 ### 垃圾回收算法
@@ -627,16 +637,16 @@ JavaScript有自动垃圾收集机制，垃圾收集器会每隔一段时间就�
 ```js
 // 创建一个对象person，他有两个指向属性age和name的引用
 var person = {
-    age: 12,
-    name: 'aaaa'
+  age: 12,
+  name: "aaaa",
 };
 
 person.name = null; // 虽然name设置为null，但因为person对象还有指向name的引用，因此name不会回收
 
-var p = person; 
-person = 1;         //原来的person对象被赋值为1，但因为有新引用p指向原person对象，因此它不会被回收
+var p = person;
+person = 1; //原来的person对象被赋值为1，但因为有新引用p指向原person对象，因此它不会被回收
 
-p = null;           //原person对象已经没有引用，很快会被回收
+p = null; //原person对象已经没有引用，很快会被回收
 ```
 
 引用计数有一个致命的问题，那就是循环引用
@@ -645,12 +655,12 @@ p = null;           //原person对象已经没有引用，很快会被回收
 
 ```js
 function cycle() {
-    var o1 = {};
-    var o2 = {};
-    o1.a = o2;
-    o2.a = o1; 
+  var o1 = {};
+  var o2 = {};
+  o1.a = o2;
+  o2.a = o1;
 
-    return "cycle reference!"
+  return "cycle reference!";
 }
 
 cycle();
@@ -662,32 +672,33 @@ cycle();
 
 ```js
 var div = document.createElement("div");
-div.onclick = function() {
-    console.log("click");
+div.onclick = function () {
+  console.log("click");
 };
 ```
 
 上面的写法很常见，但是上面的例子就是一个循环引用。
 
-变量div有事件处理函数的引用，同时事件处理函数也有div的引用，因为div变量可在函数内被访问，所以循环引用就出现了。
+变量 div 有事件处理函数的引用，同时事件处理函数也有 div 的引用，因为 div 变量可在函数内被访问，所以循环引用就出现了。
 
 #### 标记清除（常用）
-标记清除算法将“不再使用的对象”定义为“无法到达的对象”。即从根部（在JS中就是全局对象）出发定时扫描内存中的对象，凡是能从根部到达的对象，保留。那些从根部出发无法触及到的对象被标记为不再使用，稍后进行回收。
+
+标记清除算法将“不再使用的对象”定义为“无法到达的对象”。即从根部（在 JS 中就是全局对象）出发定时扫描内存中的对象，凡是能从根部到达的对象，保留。那些从根部出发无法触及到的对象被标记为不再使用，稍后进行回收。
 
 无法触及的对象包含了没有引用的对象这个概念，但反之未必成立。
 
-引擎在执行 GC（使用标记清除算法）时，需要从出发点去遍历内存中所有的对象去打标记，而这个出发点有很多，我们称之为一组 根 对象，而所谓的根对象，其实在浏览器环境中包括又不止于 全局Window对象、文档DOM树 等
+引擎在执行 GC（使用标记清除算法）时，需要从出发点去遍历内存中所有的对象去打标记，而这个出发点有很多，我们称之为一组 根 对象，而所谓的根对象，其实在浏览器环境中包括又不止于 全局 Window 对象、文档 DOM 树 等
 
 整个标记清除算法大致过程就像下面这样：
->1. 垃圾收集器在运行时会给内存中的所有变量都加上一个标记，假设内存中所有对象都是垃圾，全标记为0
->2. 然后从各个根对象开始遍历，把不是垃圾的节点改成1
->3. 清理所有标记为0的垃圾，销毁并回收它们所占用的内存空间
->4. 最后，把所有内存中对象标记修改为0，等待下一轮垃圾回收
 
+> 1.  垃圾收集器在运行时会给内存中的所有变量都加上一个标记，假设内存中所有对象都是垃圾，全标记为 0
+> 2.  然后从各个根对象开始遍历，把不是垃圾的节点改成 1
+> 3.  清理所有标记为 0 的垃圾，销毁并回收它们所占用的内存空间
+> 4.  最后，把所有内存中对象标记修改为 0，等待下一轮垃圾回收
 
 所以上面的例子就可以正确被垃圾回收处理了。
 
-所以现在对于主流浏览器来说，只需要切断需要回收的对象与根部的联系。最常见的内存泄露一般都与DOM元素绑定有关：
+所以现在对于主流浏览器来说，只需要切断需要回收的对象与根部的联系。最常见的内存泄露一般都与 DOM 元素绑定有关：
 
 ```js
 email.message = document.createElement(“div”);
@@ -696,14 +707,14 @@ displayList.appendChild(email.message);
 // 稍后从displayList中清除DOM元素
 displayList.removeAllChildren();
 ```
-上面代码中，div元素已经从DOM树中清除，但是该div元素还绑定在email对象中，所以如果email对象存在，那么该div元素就会一直保存在内存中。
 
+上面代码中，div 元素已经从 DOM 树中清除，但是该 div 元素还绑定在 email 对象中，所以如果 email 对象存在，那么该 div 元素就会一直保存在内存中。
 
 ### Chrome 垃圾回收算法
 
-在JavaScript中，其实绝大多数的对象存活周期都很短，大部分在经过一次的垃圾回收之后，内存就会被释放掉，而少部分的对象存活周期将会很长，一直是活跃的对象，不需要被回收。为了提高回收效率，V8 将堆分为两类`新生代`和`老生代`，新生代中存放的是生存时间短的对象，老生代中存放的生存时间久的对象。
+在 JavaScript 中，其实绝大多数的对象存活周期都很短，大部分在经过一次的垃圾回收之后，内存就会被释放掉，而少部分的对象存活周期将会很长，一直是活跃的对象，不需要被回收。为了提高回收效率，V8 将堆分为两类`新生代`和`老生代`，新生代中存放的是生存时间短的对象，老生代中存放的生存时间久的对象。
 
-新生区通常只支持 1～8M 的容量，而老生区支持的容量就大很多了。对于这两块区域，V8 分别使用两个不同的垃圾回收器，以便更高效地实施垃圾回收。
+新生区通常只支持 1 ～ 8M 的容量，而老生区支持的容量就大很多了。对于这两块区域，V8 分别使用两个不同的垃圾回收器，以便更高效地实施垃圾回收。
 
 - 副垃圾回收器 - Scavenge：主要负责新生代的垃圾回收。
 - 主垃圾回收器 - Mark-Sweep & Mark-Compact：主要负责老生代的垃圾回收。
@@ -715,9 +726,9 @@ V8 整个堆内存的大小就等于新生代加上老生代的内存（如下�
 
 ### 新生代垃圾回收 - Scavenge
 
-在JavaScript中，任何对象的声明分配到的内存，将会先被放置在新生代中，而因为大部分对象在内存中存活的周期很短，所以需要一个效率非常高的算法。在新生代中，主要使用Scavenge算法进行垃圾回收，Scavenge算法是一个典型的牺牲空间换取时间的复制算法，在占用空间不大的场景上非常适用。
+在 JavaScript 中，任何对象的声明分配到的内存，将会先被放置在新生代中，而因为大部分对象在内存中存活的周期很短，所以需要一个效率非常高的算法。在新生代中，主要使用 Scavenge 算法进行垃圾回收，Scavenge 算法是一个典型的牺牲空间换取时间的复制算法，在占用空间不大的场景上非常适用。
 
-Scavenge算法将新生代堆分为两部分，分别叫`from-space`（使用区）和`to-space`（空闲区），工作方式也很简单，就是将`from-space`中存活的活动对象复制到to-space中，并将这些对象的内存有序的排列起来，然后将`from-space`中的非活动对象的内存进行释放，完成之后，将`from space` 和`to space`进行互换，这样可以使得新生代中的这两块区域可以重复利用。
+Scavenge 算法将新生代堆分为两部分，分别叫`from-space`（使用区）和`to-space`（空闲区），工作方式也很简单，就是将`from-space`中存活的活动对象复制到 to-space 中，并将这些对象的内存有序的排列起来，然后将`from-space`中的非活动对象的内存进行释放，完成之后，将`from space` 和`to space`进行互换，这样可以使得新生代中的这两块区域可以重复利用。
 
 ![新生代垃圾回收](/images/scavenge.png)
 
@@ -725,26 +736,26 @@ Scavenge算法将新生代堆分为两部分，分别叫`from-space`（使用区
 
 另外还有一种情况，如果复制一个对象到空闲区时，空闲区空间占用超过了 25%，那么这个对象会被直接晋升到老生代空间中，设置为 25% 的比例的原因是，当完成 Scavenge 回收后，空闲区将翻转成使用区，继续进行对象内存的分配，若占比过大，将会影响后续内存分配。
 
-__那么，垃圾回收器是怎么知道哪些对象是活动对象和非活动对象的呢？__
+**那么，垃圾回收器是怎么知道哪些对象是活动对象和非活动对象的呢？**
 
 有一个概念叫对象的可达性，表示从初始的根对象（window，global）的指针开始，这个根指针对象被称为根集（root set），从这个根集向下搜索其子节点，被搜索到的子节点说明该节点的引用对象可达，并为其留下标记，然后递归这个搜索的过程，直到所有子节点都被遍历结束，那么没有被标记的对象节点，说明该对象没有被任何地方引用，可以证明这是一个需要被释放内存的对象，可以被垃圾回收器回收。
 
-***新生代中的对象什么时候变成老生代的对象呢？***
+**_新生代中的对象什么时候变成老生代的对象呢？_**
 
-在新生代中，还进一步进行了细分，分为nursery子代和intermediate子代两个区域，一个对象第一次分配内存时会被分配到新生代中的nursery子代，如果进过下一次垃圾回收这个对象还存在新生代中，这时候我们移动到 intermediate 子代，再经过下一次垃圾回收，如果这个对象还在新生代中，副垃圾回收器会将该对象移动到老生代中，这个移动的过程被称为`晋升`。
+在新生代中，还进一步进行了细分，分为 nursery 子代和 intermediate 子代两个区域，一个对象第一次分配内存时会被分配到新生代中的 nursery 子代，如果进过下一次垃圾回收这个对象还存在新生代中，这时候我们移动到 intermediate 子代，再经过下一次垃圾回收，如果这个对象还在新生代中，副垃圾回收器会将该对象移动到老生代中，这个移动的过程被称为`晋升`。
 
 ### 老生代垃圾回收 - Mark-Sweep & Mark-Compact
 
-新生代空间中的对象满足一定条件后，晋升到老生代空间中，在老生代空间中的对象都已经至少经历过一次或者多次的回收所以它们的存活概率会更大，如果这个时候再使用scavenge算法的话，会出现两个问题：
+新生代空间中的对象满足一定条件后，晋升到老生代空间中，在老生代空间中的对象都已经至少经历过一次或者多次的回收所以它们的存活概率会更大，如果这个时候再使用 scavenge 算法的话，会出现两个问题：
 
-- scavenge为复制算法，重复复制活动对象会使得效率低下
-- scavenge是牺牲空间来换取时间效率的算法，而老生代支持的容量较大，会出现空间资源浪费问题
-  
+- scavenge 为复制算法，重复复制活动对象会使得效率低下
+- scavenge 是牺牲空间来换取时间效率的算法，而老生代支持的容量较大，会出现空间资源浪费问题
+
 所以在老生代空间中采用了 Mark-Sweep（标记清除） 和 Mark-Compact（标记整理） 算法。
 
-__标记清除（Mark-Sweep）__
+**标记清除（Mark-Sweep）**
 
-Mark-Sweep处理时分为两阶段，标记阶段和清理阶段，看起来与Scavenge类似，不同的是，Scavenge算法是复制活动对象，而由于在老生代中活动对象占大多数，所以Mark-Sweep在标记了活动对象和非活动对象之后，直接把非活动对象清除。
+Mark-Sweep 处理时分为两阶段，标记阶段和清理阶段，看起来与 Scavenge 类似，不同的是，Scavenge 算法是复制活动对象，而由于在老生代中活动对象占大多数，所以 Mark-Sweep 在标记了活动对象和非活动对象之后，直接把非活动对象清除。
 
 - 标记阶段：对老生代进行第一次扫描，标记活动对象
 - 清理阶段：对老生代进行第二次扫描，清除未被标记的对象，即清理非活动对象
@@ -753,18 +764,175 @@ Mark-Sweep处理时分为两阶段，标记阶段和清理阶段，看起来与S
 
 这里遗留了一个问题，被清除的对象遍布于各内存地址，产生很多内存碎片。
 
-__标记整理（Mark-Compact）__
+**标记整理（Mark-Compact）**
 
-由于Mark-Sweep完成之后，老生代的内存中产生了很多内存碎片，若不清理这些内存碎片，如果出现需要分配一个大对象的时候，这时所有的碎片空间都完全无法完成分配，就会提前触发垃圾回收，而这次回收其实不是必要的。
+由于 Mark-Sweep 完成之后，老生代的内存中产生了很多内存碎片，若不清理这些内存碎片，如果出现需要分配一个大对象的时候，这时所有的碎片空间都完全无法完成分配，就会提前触发垃圾回收，而这次回收其实不是必要的。
 
-为了解决内存碎片问题，Mark-Compact被提出，它是在 Mark-Sweep的基础上演进而来的，相比Mark-Sweep，Mark-Compact添加了活动对象整理阶段，将所有的活动对象往一端移动，移动完成后，直接清理掉边界外的内存。
+为了解决内存碎片问题，Mark-Compact 被提出，它是在 Mark-Sweep 的基础上演进而来的，相比 Mark-Sweep，Mark-Compact 添加了活动对象整理阶段，将所有的活动对象往一端移动，移动完成后，直接清理掉边界外的内存。
 
 ![mark-compact](/images/mark-compact.png)
 
 > 引用地址：
-> 
+>
 > https://muyiy.cn/blog/1/1.4.html#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95
-> 
+>
 > https://juejin.cn/post/6981588276356317214#heading-4
-> 
+>
 > https://github.com/yacan8/blog/issues/33
+
+## JS 深拷贝和浅拷贝的实现及区别{#deep-copy-and-shallow-copy}
+
+### 浅拷贝
+
+浅拷贝，指的是创建新的数据，这个数据有着原始数据属性值的一份精确拷贝
+
+如果属性是基本类型，拷贝的就是基本类型的值。如果属性是引用类型，拷贝的就是内存地址
+
+即浅拷贝是拷贝一层，深层次的引用类型则共享内存地址，修改值会影响原始值。
+
+1. 直接赋值
+
+```js
+let one = { a: 1, obj: { b: 2 } };
+const two = one;
+one.a = 11;
+one.obj.b = 22;
+console.log("two->", two); // { a: 11, obj: { b: 22 } }
+```
+
+2. 拓展运算符
+
+```js
+let one = { a: 1, obj: { b: 2 } };
+const two = { ...one };
+one.a = 11;
+one.obj.b = 22;
+console.log("two->", two); // { a: 1, obj: { b: 22 } }
+```
+
+3. Object.assign
+
+```js
+let one = { a: 1, obj: { b: 2 } };
+const two = Object.assign({}, one);
+one.a = 11;
+one.obj.b = 22;
+console.log("two->", two); // { a: 1, obj: { b: 22 } }
+// 注意：当object只有一层的时候，是深拷贝
+```
+
+4. slice()
+
+```js
+//slice 不会修改原数组，只会返回一个浅复制了原数组中的元素的一个新数组。
+const arr = ["apple", "orange", "banana"];
+let shallowArr = arr.slice(0);
+shallowArr[1] = "lemon";
+console.log("arr->", arr); // ["apple", "orange", "banana"]
+console.log("shallowArr->", shallowArr); // ["apple", "lemon", "banana"]
+```
+
+5. concat()
+
+```js
+const arr = ["apple", "orange", "banana"];
+let shallowArr = arr.concat();
+shallowArr[1] = "lemon";
+console.log("arr->", arr); // ["apple", "orange", "banana"]
+console.log("shallowArr->", shallowArr); // ["apple", "lemon", "banana"]
+```
+
+6. Lodash：[clone()](https://www.lodashjs.com/docs/lodash.clone)
+
+```js
+const objects = [{ a: 1 }, { b: 2 }];
+
+const shallow = _.clone(objects);
+console.log(shallow[0] === objects[0]);
+// => true
+```
+
+### 深拷贝
+
+深拷贝开辟一个新的栈，两个对象属完成相同，但是对应两个不同的地址，修改一个对象的属性，不会改变另一个对象的属性。
+
+1. JSON.parse(JSON.stringify(obj))
+
+```js
+const obj1 = {
+  name: "nike",
+  level: {
+    football: 2,
+    basketball: 3,
+  },
+};
+
+let obj2 = JSON.parse(JSON.stringify(obj1));
+obj2.name = "tom";
+obj2.level.football = 1;
+console.log("obj1->", obj1); // { name: "nike", level: { football: 2, basketball: 3 } }
+```
+
+但这种方式会忽略`undefined`、`function`和`Symbol`。
+
+```js
+const obj1 = {
+  name: "nike",
+  level: {
+    football: 2,
+    basketball: 3,
+  },
+  udf: undefined,
+  fn: function () {},
+  symbol: Symbol("s"),
+};
+
+let obj2 = JSON.parse(JSON.stringify(obj1));
+
+obj2.name = "tom";
+obj2.level.football = 1;
+console.log("obj1->", obj1); // { name: "nike", level: { football: 2, basketball: 3 }, udf: undefined, fn: [Function: fn], symbol: Symbol(s) }
+console.log("obj2->", obj2); // { name: "tom", level: { football: 1, basketball: 3 } }
+```
+
+2. 递归赋值
+
+```js
+function deepClone(obj) {
+  let objClone = Array.isArray(obj) ? [] : {};
+  if (obj && typeof obj === "object") {
+    for (key in obj) {
+      //判断是否为自身属性
+      if (obj.hasOwnProperty(key)) {
+        //判断ojb子元素是否为对象，如果是，递归复制
+        if (obj[key] && typeof obj[key] === "object") {
+          objClone[key] = deepClone(obj[key]);
+        } else {
+          //如果不是，简单复制
+          objClone[key] = obj[key];
+        }
+      }
+    }
+  }
+  return objClone;
+}
+```
+
+3. Lodash：[cloneDeep()](https://www.lodashjs.com/docs/lodash.cloneDeep#_clonedeepvalue)
+
+```js
+const _ = require("lodash");
+
+let obj2 = _.cloneDeep(obj1);
+```
+
+### 深拷贝和浅拷贝的区别
+
+![deep-shallow-copy](/images/deep-shallow-copy.png)
+
+从上图发现，浅拷贝和深拷贝都创建出一个新的对象，但在复制对象属性的时候，行为是不一样的。
+
+深拷贝和浅拷贝主要针对对象和数组来说的。
+
+- **浅拷贝**，当复制了一个对象后，一个对象修改，会影响另一个对象。因为拷贝的是对象的引用地址，指向的还是同一片空间。
+- **深拷贝**，当复制了一个对象后，一个对象修改后，不会影响另一个对象。因为深拷贝拷贝了对象的属性并创建了新的对象，重新分配内存，拥有不同的地址。

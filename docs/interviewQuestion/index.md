@@ -23,6 +23,7 @@
   - [什么是闭包?闭包的作用是什么？](./javaScript#closure)
   - [typeof 和 instanceof 的使用和区别](./javaScript#typeof-instanceof)
   - [浏览器垃圾回收机制](./javaScript#browser-garbage-collection)
+  - [JS 深拷贝和浅拷贝的实现及区别](./javaScript#deep-copy-and-shallow-copy)
 ## [Vue2相关](./vue2)
   - [v-if 和 v-show 的区别](./vue2#v-if-and-v-show-difference)
   - [$router 和 $route 的区别](./vue2#router-and-route-difference)
