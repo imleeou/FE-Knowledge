@@ -1,5 +1,8 @@
 #  题目知识
 
+## [常见面试题](./oftenMeet)
+  - [0.1 + 0.2 === 0.3 ？为什么？](./oftenMeet#decimal-sum)
+  - [== 和 === 有什么区别？](./oftenMeet#equal-and-strict-equal)
 ## [HTML相关](./html)
   - [html5 有哪些新增标签？](./html#html5-new-tags)
   - [浏览器渲染机制](./html#browser-render)

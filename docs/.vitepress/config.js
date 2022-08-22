@@ -63,6 +63,10 @@ export default {
           // collapsible: true,
           items: [
             {
+              text: "常见面试题",
+              link: "/interviewQuestion/oftenMeet",
+            },
+            {
               text: "HTML相关",
               link: "/interviewQuestion/html",
             },
