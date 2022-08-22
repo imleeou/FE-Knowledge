@@ -3,7 +3,7 @@
 ## JS 基本数据类型与引用数据类型有哪些？{#js-data-type}
 
 - 基本数据类型：String、Number、Boolean、Null、undefined、Symbol
-- 引用数据类型：Array、Function、RegExp、Date 等
+- 引用数据类型：Object、Array、Function、RegExp、Date 等
 
 ## 基本数据类型与引用数据类型的区别有哪些？{#js-data-type-difference}
 
@@ -213,7 +213,7 @@ Web 存储 API 提供了 `sessionStorage` （会话存储） 和 `localStorage`�
 
 ## JS 事件循环(event loop){#event-loop}
 
-JavaScript 语言的一大特点就是**_单线程_**。作为浏览器脚本语言，JavaScript 的主要用途是与用户互动，以及操作 DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定 JavaScript 同时有两个线程，一个线程在某个 DOM 节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？
+JavaScript 语言的一大特点就是**单线程**。作为浏览器脚本语言，JavaScript 的主要用途是与用户互动，以及操作 DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定 JavaScript 同时有两个线程，一个线程在某个 DOM 节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？
 
 所以，为了避免复杂性，从一诞生，JavaScript 就是单线程，这已经成了这门语言的核心特征，将来也不会改变。
 
