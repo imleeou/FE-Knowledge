@@ -936,3 +936,112 @@ let obj2 = _.cloneDeep(obj1);
 
 - **浅拷贝**，当复制了一个对象后，一个对象修改，会影响另一个对象。因为拷贝的是对象的引用地址，指向的还是同一片空间。
 - **深拷贝**，当复制了一个对象后，一个对象修改后，不会影响另一个对象。因为深拷贝拷贝了对象的属性并创建了新的对象，重新分配内存，拥有不同的地址。
+
+## 理解 this 关键字{#js-this}
+
+面向对象语言中 this 表示当前对象的一个引用。
+
+但在 JavaScript 中 this 不是固定不变的，它会随着执行环境的改变而改变。
+
+- 在方法中，this 表示该方法所属的对象。
+- 如果单独使用，this 表示全局对象。
+- 在函数中，this 表示全局对象。
+- 在函数中，在严格模式下，this 是未定义的(undefined)。
+- 在事件中，this 表示接收事件的元素。
+- 类似 [call() 和 apply()](#call-apply-bind) 方法可以将 this 引用到任何对象。
+
+### 在浏览器单独使用 this
+
+单独使用 this，则它指向全局(Global)对象。
+
+在浏览器中，Window 就是该全局对象为 `[object Window]`。
+
+**严格模式**下，如果单独使用，this 也是指向全局(Global)对象。
+
+### 在对象方法中的 this
+
+```js
+const person = {
+  name: "nike",
+  age: 13,
+  say: function () {
+    return `我叫${this.name}，${this.age}岁`;
+  },
+};
+console.log(person.say()); // 我叫nike，13岁
+```
+
+在对象方法中， this 指向调用它所在方法的对象。
+
+### 函数中的 this
+
+```js
+function fn() {
+  return this;
+}
+console.log("fn->", fn()); // Window{}
+```
+
+非严格模式下，this 指向全局对象 Window。
+
+```js
+"use strict";
+function fn() {
+  return this;
+}
+console.log("fn->", fn()); // undefined
+```
+
+严格模式下，this 指向 undefined。
+
+### 事件中的 this
+
+```html
+<button onclick="this.style.display='none'">点击</button>
+```
+
+点击后按钮消失，this 指向了接收事件的 HTML 元素。
+
+## `call()`、`apply()`、`bind()`的用法和区别{#call-apply-bind}
+
+[call](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/call)、[apply](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)、[bind](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)函数它们的作用是改变函数执行时的上下文，就是改变函数运行时的 this 指向。
+示例：
+```js
+const nike = {
+  name: "nike",
+  age: 18,
+  say: function (from = "us") {
+    return `Im ${this.name},${this.age} years old,from ${from}`;
+  },
+};
+const tom = {
+  name: "tom",
+  age: 14,
+};
+console.log(nike.say()); // Im nike,18 years old,from us
+```
+
+使用 call、apply、bind 更改 this 指向
+
+```js
+const nike = {
+  name: "nike",
+  age: 18,
+  say: function (from = "us") {
+    return `Im ${this.name},${this.age} years old,from ${from}`;
+  },
+};
+const tom = {
+  name: "tom",
+  age: 14,
+};
+console.log(nike.say.call(tom, "uk")); //Im tom,14 years old,from uk
+console.log(nike.say.apply(tom, ["china"])); //Im tom,14 years old,from china
+console.log(nike.say.bind(tom, "kr")()); // Im tom,14 years old,from kr
+```
+### 区别
+
+1. 三个函数的第一个参数都是 this 的指向对象 
+2. `call()` 和 `apply()` 的语法几乎相同，但根本区别在于，`call()` 接受一个参数列表，而 `apply()` 接受一个参数的单数组。
+3. `bind()` 和 `call()` 的参数一样，但 `bind()` 返回一个原函数的拷贝，并拥有指定的 this 值和初始参数，你必须调用它才会被执行。
+

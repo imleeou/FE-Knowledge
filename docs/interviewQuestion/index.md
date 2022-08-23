@@ -27,6 +27,8 @@
   - [typeof 和 instanceof 的使用和区别](./javaScript#typeof-instanceof)
   - [浏览器垃圾回收机制](./javaScript#browser-garbage-collection)
   - [JS 深拷贝和浅拷贝的实现及区别](./javaScript#deep-copy-and-shallow-copy)
+  - [理解 this 关键字](./javaScript#js-this)
+  - [`call()`、`apply()`、`bind()`的用法和区别](./javaScript#call-apply-bind)
 ## [Vue2相关](./vue2)
   - [v-if 和 v-show 的区别](./vue2#v-if-and-v-show-difference)
   - [$router 和 $route 的区别](./vue2#router-and-route-difference)
