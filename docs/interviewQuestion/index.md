@@ -29,6 +29,7 @@
   - [JS 深拷贝和浅拷贝的实现及区别](./javaScript#deep-copy-and-shallow-copy)
   - [理解 this 关键字](./javaScript#js-this)
   - [`call()`、`apply()`、`bind()`的用法和区别](./javaScript#call-apply-bind)
+  - [new 运算符是什么？做了什么？](./javaScript#new)
 ## [Vue2相关](./vue2)
   - [v-if 和 v-show 的区别](./vue2#v-if-and-v-show-difference)
   - [$router 和 $route 的区别](./vue2#router-and-route-difference)

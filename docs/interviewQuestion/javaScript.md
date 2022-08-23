@@ -1006,6 +1006,7 @@ console.log("fn->", fn()); // undefined
 
 [call](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/call)、[apply](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)、[bind](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)函数它们的作用是改变函数执行时的上下文，就是改变函数运行时的 this 指向。
 示例：
+
 ```js
 const nike = {
   name: "nike",
@@ -1039,9 +1040,149 @@ console.log(nike.say.call(tom, "uk")); //Im tom,14 years old,from uk
 console.log(nike.say.apply(tom, ["china"])); //Im tom,14 years old,from china
 console.log(nike.say.bind(tom, "kr")()); // Im tom,14 years old,from kr
 ```
+
 ### 区别
 
-1. 三个函数的第一个参数都是 this 的指向对象 
+1. 三个函数的第一个参数都是 this 的指向对象
 2. `call()` 和 `apply()` 的语法几乎相同，但根本区别在于，`call()` 接受一个参数列表，而 `apply()` 接受一个参数的单数组。
 3. `bind()` 和 `call()` 的参数一样，但 `bind()` 返回一个原函数的拷贝，并拥有指定的 this 值和初始参数，你必须调用它才会被执行。
 
+## new 运算符是什么？做了什么？{#new}
+
+`new` 运算符创建一个用户定义的对象类型的实例或具有构造函数的内置对象的实例。
+
+```js
+function Person(name, age, gender) {
+  this.name = name;
+  this.age = age;
+  this.gender = gender;
+}
+Person.prototype.say = function () {
+  console.log(`my name is ${this.name}`);
+};
+const tom = new Person("tom", 22, "man");
+console.log("tom->", tom); // Person {name: "tom", age: 22, gender:'man'}
+tom.say(); // my name is tom
+```
+
+从例子中可以到：
+
+- `new` 通过构造函数 `Person` 创建出来的实例可以访问到构造函数中的属性
+- `new` 通过构造函数 `Person` 创建出来的实例可以访问到构造函数原型链中的属性（即实例与构造函数通过原型链连接了起来）
+
+现在在构建函数中显式加上返回值，并且这个返回值是一个原始类型。
+
+```js
+function Test(name) {
+  this.name = name;
+  return 1;
+}
+const t = new Test("xxx");
+console.log(t.name); // 'xxx'
+```
+
+可以发现，构造函数中返回一个原始值，然而这个返回值并没有作用。
+
+下面在构造函数中返回一个对象。
+
+```js
+function Test(name) {
+  this.name = name;
+  console.log(this); // Test { name: 'xxx' }
+  return { age: 26 };
+}
+const t = new Test("xxx");
+console.log(t); // { age: 26 }
+console.log(t.name); // 'undefined'
+```
+
+从上面可以发现，构造函数如果返回值为一个对象，那么这个返回值会被正常使用
+
+**new** 关键字会进行如下的操作：
+
+1. 创建一个空的简单 JavaScript 对象（即`{}`）；
+2. 为步骤 1 新创建的对象添加属性`__proto__`，将该属性链接至构造函数的原型对象 ；
+3. 将步骤 1 新创建的对象作为**this**的上下文 ；
+4. 如果该函数没有返回对象，则返回**this**。
+
+### 创建一个用户自定义的对象需要两步：
+
+1. 通过编写函数来定义对象类型。
+2. 通过 new 来创建对象实例。
+   创建一个对象类型，需要创建一个指定其名称和属性的函数；对象的属性可以指向其他对象，看下面的例子：
+
+当代码 **new Foo(...)** 执行时，会发生以下事情：
+
+1. 一个继承自 `Foo.prototype` 的新对象被创建。
+2. 使用指定的参数调用构造函数 `Foo`，并将 `this` 绑定到新创建的对象。`new Foo` 等同于 `new Foo()`，也就是没有指定参数列表，`Foo` 不带任何参数调用的情况。
+3. 由构造函数返回的对象就是 `new` 表达式的结果。如果构造函数没有显式返回一个对象，则使用步骤 1 创建的对象。（一般情况下，构造函数不返回值，但是用户可以选择主动返回对象，来覆盖正常的对象创建步骤）
+
+你始终可以对已定义的对象添加新的属性。例如，`car1.color = "black"` 语句给 `car1` 添加了一个新的属性 `color` ，并给这个属性赋值 "`black`"。但是，这不会影响任何其他对象。要将新属性添加到相同类型的所有对象，你必须将该属性添加到 `Car` 对象类型的定义中。
+
+你可以使用 `Function.prototype` 属性将共享属性添加到以前定义的对象类型。这定义了一个由该函数创建的所有对象共享的属性，而不仅仅是对象类型的其中一个实例。下面的代码将一个值为 `null` 的 `color` 属性添加到 `car` 类型的所有对象，然后仅在实例对象 `car1` 中用字符串 "`black`" 覆盖该值。
+
+```js
+function Car() {}
+car1 = new Car();
+car2 = new Car();
+
+console.log(car1.color); // undefined
+
+Car.prototype.color = "original color";
+console.log(car1.color); // original color
+
+car1.color = "black";
+console.log(car1.color); // black
+
+console.log(car1.__proto__.color); //original color
+console.log(car2.__proto__.color); //original color
+console.log(car1.color); // black
+console.log(car2.color); // original color
+```
+
+:::info 备注：
+如果你没有使用 new 运算符，构造函数会像其他的常规函数一样被调用，并不会创建一个对象。在这种情况下， this 的指向也是不一样的。
+:::
+
+### 手写实现 `new` 操作符
+
+```js
+function mynew(Func, ...args) {
+  // 1.创建一个新对象
+  const obj = {};
+  // 2.新对象原型指向构造函数原型对象
+  obj.__proto__ = Func.prototype;
+  // 3.将构建函数的this指向新对象
+  let result = Func.apply(obj, args);
+  // 4.根据返回值判断
+  return result instanceof Object ? result : obj;
+}
+```
+
+测试：
+
+```js
+function mynew(func, ...args) {
+  const obj = {};
+  obj.__proto__ = func.prototype;
+  let result = func.apply(obj, args);
+  return result instanceof Object ? result : obj;
+}
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+Person.prototype.say = function () {
+  console.log(this.name);
+};
+
+let p = mynew(Person, "leeSin", 123);
+console.log(p); // Person {name: "leeSin", age: 123}
+p.say(); // leeSin
+```
+
+> 引用地址
+>
+> https://vue3js.cn/interview/JavaScript/new.html
+>
+> https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new
