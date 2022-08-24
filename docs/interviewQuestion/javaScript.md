@@ -1186,3 +1186,82 @@ p.say(); // leeSin
 > https://vue3js.cn/interview/JavaScript/new.html
 >
 > https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new
+
+## JS 原型，原型链？{#prototype-chain}
+
+`JavaScript` 常被描述为一种基于原型的语言——每个对象拥有一个原型对象。
+
+当试图访问一个对象的属性时，它不仅仅在该对象上搜寻，还会搜寻该对象的原型，以及该对象的原型的原型，依次层层向上搜索，直到找到一个名字匹配的属性或到达原型链的末尾。
+
+准确地说，这些属性和方法定义在 Object 的构造器函数（constructor functions）之上的 prototype 属性上，而非实例对象本身。
+
+### prototype
+
+函数可以有属性。每个函数还有一个特殊的属性叫做 `prototype` 原型。
+
+```js
+function Students(name, age) {
+  this.name = name;
+  this.age = age;
+}
+Students.prototype.hobby = function (love = "study") {
+  console.log(`I like ${love}`);
+};
+console.log(Students === Students.prototype.constructor); // true
+console.log(Students.prototype);
+```
+
+控制台输出：
+![prototype](/images/javaScript/prototype-case.png)
+
+可以看到，原型对象有 `hobby` 方法和一个自有属性 `constructor` 。
+
+`constructor` 这个属性指向该构造函数(`Students === Students.prototype.constructor`)，每个原型都有一个 `constructor` 属性指向关联的构造函数。关系如下图：
+
+<div align="center"><img src="/images/javaScript/prototype-constructor.png"></div>
+
+### \_\_proto\_\_
+
+`__proto__` 是每一个 JavaScript 对象(除了 null )都具有的一个属性，这个属性会指向该对象的原型。
+
+我们用上面的构造函数 `Students` [`new`](#new) 一个实例。
+
+```js
+const ming = new Students("小明", 20);
+console.log(Students.prototype === ming.__proto__); // true
+```
+
+于是我们更新下关系图：
+
+<div align="center"><img src="/images/javaScript/prototype-constructor-2.png"></div>
+
+### 原型链
+
+原型对象也可能拥有原型，并从中继承方法和属性，一层一层、以此类推。这种关系常被称为 **原型链** (prototype chain)，它解释了为何一个对象会拥有定义在其他对象中的属性和方法。
+
+在对象实例和它的构造器之间建立一个链接（它是 `__proto__` 属性，是从构造函数的 `prototype` 属性派生的），之后通过上溯原型链，在构造器中找到这些属性和方法。
+
+原型也是一个对象，既然是对象，我们就可以用最原始的方式创建它。
+
+借助上面的例子，我们再做些验证。
+
+```js
+const obj = new Object();
+console.log(Students.prototype.__proto__ === obj.__proto__); // true
+console.log(obj.__proto__ === Object.prototype); // true
+console.log(Object.prototype.__proto__); // null
+```
+我们发现，`Students.prototype.__proto__ === obj.__proto__ === Object.prototype`，`Students`的原型对象的上层原型是 `Object`的原型，`Object`的上层原型是 `null` ，说明查找到了原型链的顶层，可以停止查找了。
+
+关系图更新为：
+
+<div align="center"><img src="/images/javaScript/prototype-chain.png"></div>
+
+图中由相互关联的原型组成的链状结构就是 __原型链__，也就是绿色的这条线。
+
+:::tip 总结
+- 一切对象都是继承自Object对象，Object 对象直接继承根源对象null
+- 一切的函数对象（包括 Object 对象），都是继承自 Function 对象
+- Object 对象直接继承自 Function 对象
+- Function对象的__proto__会指向自己的原型对象，最终还是继承自Object对象
+:::
