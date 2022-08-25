@@ -135,7 +135,7 @@ window.history.replaceState(null, null, path);
 
 期望的绑定值类型：`Array | Object | number | string | Iterable`。
 
-```javascript
+```html
 <div v-for="item in items" :key="item.id">
   {{ item.text }}
 </div>
@@ -145,7 +145,7 @@ window.history.replaceState(null, null, path);
 
 当 v-if 元素被触发，元素及其所包含的指令/组件都会销毁和重构。如果初始条件是假，那么其内部的内容根本都不会被渲染。
 
-```js
+```html
 <p v-if="true">元素</p>
 ```
 
@@ -166,7 +166,7 @@ window.history.replaceState(null, null, path);
 
 当你只想为部分项渲染节点时，这种优先级的机制会十分有用，如下：
 
-```js
+```html
 <li v-for="todo in todos" v-if="!todo.isComplete">
   {{ todo }}
 </li>
@@ -176,7 +176,7 @@ window.history.replaceState(null, null, path);
 
 为了避免渲染本应该被隐藏的列表或你的目的是有条件地跳过循环的执行，那么可以将 `v-if` 置于外层元素 (或 `<template>`) 上。如：
 
-```js
+```html
 <ul v-if="todos.length">
   <li v-for="todo in todos">
     {{ todo }}
@@ -189,7 +189,7 @@ window.history.replaceState(null, null, path);
 
 当它们同时存在于一个节点上时，`v-if` 比 `v-for` 的优先级更高。这意味着 `v-if` 的条件将无法访问到 `v-for` 作用域内定义的变量别名：
 
-```js
+```html
 // 这会抛出一个错误，因为属性 todo 此时没有在该实例上定义
 <li v-for="todo in todos" v-if="!todo.isComplete">
   {{ todo.name }}
@@ -198,10 +198,137 @@ window.history.replaceState(null, null, path);
 
 在外新包装一层 `<template>` 再在其上使用 `v-for` 可以解决这个问题 (这也更加明显易读)：
 
-```js
+```vue
 <template v-for="todo in todos">
   <li v-if="!todo.isComplete">
     {{ todo.name }}
   </li>
 </template>
 ```
+
+## v-for `key`的作用{#v-for-key}
+
+Vue 默认按照 __“就地更新”__ 的策略来更新通过 `v-for` 渲染的元素列表。当数据项的顺序改变时，Vue 不会随之移动 DOM 元素的顺序，而是就地更新每个元素，确保它们在原本指定的索引位置上渲染。
+
+默认模式是高效的，但 __只适用于列表渲染输出的结果不依赖子组件状态或者临时 DOM 状态 (例如表单输入值) 的情况__。
+
+为了给 Vue 一个提示，以便它可以跟踪每个节点的标识，从而重用和重新排序现有的元素，你需要为每个元素对应的块提供一个唯一的 key attribute：
+
+```html
+<div v-for="item in items" :key="item.id">
+  <!-- 内容 -->
+</div>
+```
+
+:::tip 提示
+- 推荐在任何可行的时候为 v-for 提供一个 key attribute，除非所迭代的 DOM 内容非常简单 (例如：不包含组件或有状态的 DOM 元素)，或者你想有意采用默认行为来提高性能。
+- 不要使用对象或数组之类的非基本类型值作为 v-for 的 key。请用字符串或数值类型的值。
+:::
+
+`key` 这个特殊的 attribute 主要作为 Vue 的虚拟 DOM 算法提示，在比较新旧节点列表时用于识别 vnode。
+
+在没有 key 的情况下，Vue 将使用一种最小化元素移动的算法，并尽可能地就地更新/复用相同类型的元素。如果传了 key，则将根据 key 的变化顺序来重新排列元素，并且将始终移除/销毁 key 已经不存在的元素。
+
+同一个父元素下的子元素必须具有 __唯一的 key__ 。重复的 key 将会导致渲染异常。
+
+### 用 `index` 作为 `key` 的值会怎么样？
+
+我们写了一个简单的例子来对比一下。
+
+```vue
+<template>
+  <ul>
+    <li v-for="(item, index) in source" :key="index">
+      <input type="checkbox" :value="index" />
+      <span>内容：{{ item.text }}，id：{{ item.id }}</span>
+      <button @click="deleteItem(index)">删除</button>
+    </li>
+  </ul>
+  <button @click="addItem()">添加</button>
+</template>
+<script>
+import { ref } from "vue";
+interface sourceType {
+  [x: string]: string | number;
+}
+const source = ref<sourceType[]>([
+  {
+    id: 1,
+    text: "11",
+  },
+  {
+    id: 2,
+    text: "22",
+  },
+  {
+    id: 3,
+    text: "33",
+  },
+  {
+    id: 4,
+    text: "44",
+  },
+]);
+const deleteItem = (index: number) => {
+  source.value.splice(index, 1);
+};
+const addItem = () => {
+  source.value.unshift({
+    id: source.value.length + 1,
+    text: (source.value.length + 1).toString().repeat(2),
+  });
+};
+</script>
+```
+![demo](/images/vue2/key-index-demo.png)
+
+我们使用`index`作为key，尝试添加一条数据，在dom的最上面一条添加`li`元素，我们希望原来的dom不发生变化。
+
+![demo](/images/vue2/key-index-demo-1.png)
+
+我们展开下标为 __1__ 的这个`li`，内容：22。我们点击新增，在列表最上方添加一项。
+
+![demo](/images/vue2/key-index-demo-2.png)
+
+我们发现除了第一项 `li` 是新增的外，其他 `li` 都发生了更新。
+
+由于我们使用 index 作为`li`的key，那么在 differ 比较的时候，index 随着插入数据发生了变化，原来第二个`li`的 index 从 1 变成了 2 ，会被认为dom发生了变化，所以执行了更新过程。造成了不必要的性能开销，我们知道dom更新是特别消耗浏览器性能的，特别是如果for里面dom比较复杂，多层嵌套的情况下，对性能的开销还是不容小觑的。
+
+使用index作为key导致了上面的问题，那么我们使用固定的id去验证一下是否可以避免上述问题。
+
+```html
+  <ul>
+    <li v-for="(item, index) in source" :key="item.id">
+      <input type="checkbox" :value="index" />
+      <span>内容：{{ item.text }}，id：{{ item.id }}</span>
+      <button @click="deleteItem(index)">删除</button>
+    </li>
+  </ul>
+```
+
+__我们一样选中第二项，点击添加。__
+
+![demo](/images/vue2/key-index-demo-3.png)
+
+我们会发现选中的第二项变成了第三项，只是插入了一个`li`在最上方，当前`li`和后面的`li`内容都没有发生变化。
+
+__在使用`index`作为key时，我们去使用`checkbox`会是什么情况呢？__
+
+![demo](/images/vue2/key-index-demo-4.png)
+
+我们勾选第二项的`checkbox`，点击删除。
+
+![demo](/images/vue2/key-index-demo-5.png)
+
+我们发现第二项还是会被勾选。
+
+原因是虚拟dom在比较元素的时候，因为dom上的key等属性均未发生变化，所以其自身和内部的checkbox均被复用了，导致了错误的显示。
+
+![demo](/images/vue2/key-index-demo-6.png)
+
+使用`id`可以避免这种情况发生，正常删除且不会被继续选中。
+
+:::tip 备注
+- 版本：Vue：3.2.37
+- 如果可以保证数据列表不会出现增删DOM更改，可看情况使用index。
+:::
