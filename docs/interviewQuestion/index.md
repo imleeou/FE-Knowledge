@@ -37,6 +37,7 @@
   - [什么是SPA？](./vue2#what-is-spa)
   - [如何实现路由懒加载？](./vue2#router-lazy-loading)
   - [hash和history路由模式的区别](./vue2#hash-and-history-route)
+  - [v-if 和 v-for 一起使用？](./vue2#v-if-v-for)
 ## [Vue3相关](./vue3)
   - [ref 和 reactive 的区别](./vue3#ref-and-reactive-difference)
   - [options api 和 composition api 的区别](./vue3#options-api-and-composition-api)
