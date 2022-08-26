@@ -39,6 +39,7 @@
   - [hash和history路由模式的区别](./vue2#hash-and-history-route)
   - [v-if 和 v-for 一起使用？](./vue2#v-if-v-for)
   - [v-for key的作用](./vue2#v-for-key)
+  - [为什么data要是一个函数？](./vue2#data-function)
 ## [Vue3相关](./vue3)
   - [ref 和 reactive 的区别](./vue3#ref-and-reactive-difference)
   - [options api 和 composition api 的区别](./vue3#options-api-and-composition-api)
