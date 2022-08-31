@@ -54,6 +54,10 @@ export default {
               text: "ES6 入门教程-阮一峰",
               link: "https://es6.ruanyifeng.com/",
             },
+            {
+              text: "NodeJs 中文网",
+              link: "http://nodejs.cn/",
+            },
           ],
         },
       ],
