@@ -43,3 +43,4 @@
 ## [Vue3相关](./vue3)
   - [ref 和 reactive 的区别](./vue3#ref-and-reactive-difference)
   - [options api 和 composition api 的区别](./vue3#options-api-and-composition-api)
+  - [watch 和 watchEffect 的使用和区别](./vue3#watch-watch-effect)
