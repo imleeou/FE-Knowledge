@@ -184,11 +184,26 @@ Web 存储 API 提供了 `sessionStorage` （会话存储） 和 `localStorage`�
 
 `Cookie` 是客户端与服务器端进行会话使用的一个能够在浏览器本地化存储的技术。简言之，cookie 是服务器端发给客户端的文本文件,但只能储存 4kb 的数据;目的是用于辨别用户身份，记录跟踪购物车的商品信息（如数量）、记录用户访问次数等。
 
+Cookie 最开始被设计出来其实并不是来做本地存储的，而是为了弥补 HTTP 在状态管理上的不足。
+
+HTTP 协议是一个无状态协议，客户端向服务器发请求，服务器返回响应，下次发请 求如何让服务端知道客户端是谁呢？这种背景下，就产生了 Cookie。
+
+Cookie 本质上就是浏览器里面存储的一个很小的文本文件，内部以键值对的方式来存储(在 chrome 开发者面板的 Application 这一栏可以看到)。
+向同一个域名下发送请求，都会携带相同的 Cookie，服务器拿到 Cookie 进行解析，便能拿到客户端的状态。
+
+![cookie](/images/javaScript/cookie.png)
+
 > cookie 的内容主要包括：名字 name，值 value，过期时间 expires，路径 path 和域 domain。路径和域一起构成 cookie 的作用范围。一般 cookie 储存在内存里，若设置了过期时间则储存在硬盘里，浏览器页面关闭也不会失效，直到设置的过期时间后才失效。若不设置 cookie 的过期时间，则有效期为浏览器窗口的会话期间，关闭浏览器窗口就失效。
 
 ::: info 原理
 客户端请求服务器时，如果服务器需要记录该用户状态，就使用 response 向客户端浏览器颁发一个 Cookie。而客户端浏览器会把 Cookie 保存起来。当浏览器再请求服务器时，浏览器把请求的网址连同该 Cookie 一同提交给服务器。服务器通过检查该 Cookie 来获取用户状态。
 :::
+
+### `Cookie` 的缺陷
+
+1. 容量缺陷。`Cookie` 的体积上限只有 4KB，只能用来存储少量的信息。
+2. 性能缺陷。`Cookie` 紧跟域名，不管域名下面的某一个地址需不需要这个 `Cookie` ，请求都会携带上完整的 `Cookie`，这样随着请求数的增多，其实会 造成巨大的性能浪费的，因为请求携带了很多不必要的内容
+3. 安全缺陷。由于 `Cookie` 以纯文本的形式在浏览器和服务器中传递，很容易 被非法用户截获，然后进行一系列的篡改，在 `Cookie` 的有效期内重新发送 给服务器，这是相当危险的。另外，在 HttpOnly 为 false 的情况下，`Cookie` 信息能直接通过 JS 脚本来读取。
 
 ## 箭头函数和普通函数有什么区别？{#arrow-function}
 
@@ -1251,17 +1266,19 @@ console.log(Students.prototype.__proto__ === obj.__proto__); // true
 console.log(obj.__proto__ === Object.prototype); // true
 console.log(Object.prototype.__proto__); // null
 ```
+
 我们发现，`Students.prototype.__proto__ === obj.__proto__ === Object.prototype`，`Students`的原型对象的上层原型是 `Object`的原型，`Object`的上层原型是 `null` ，说明查找到了原型链的顶层，可以停止查找了。
 
 关系图更新为：
 
 <div align="center"><img src="/images/javaScript/prototype-chain.png"></div>
 
-图中由相互关联的原型组成的链状结构就是 __原型链__，也就是绿色的这条线。
+图中由相互关联的原型组成的链状结构就是 **原型链**，也就是绿色的这条线。
 
 :::tip 总结
-- 一切对象都是继承自Object对象，Object 对象直接继承根源对象null
+
+- 一切对象都是继承自 Object 对象，Object 对象直接继承根源对象 null
 - 一切的函数对象（包括 Object 对象），都是继承自 Function 对象
 - Object 对象直接继承自 Function 对象
-- Function对象的__proto__会指向自己的原型对象，最终还是继承自Object对象
-:::
+- Function 对象的**proto**会指向自己的原型对象，最终还是继承自 Object 对象
+  :::
