@@ -3,8 +3,6 @@
 ## 使用 css 画一个三角形 {#css-triangle}
 
 ```css
-
-```css
 .triangle {
   border: 10px solid transparent;
   border-left-color: red;
