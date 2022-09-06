@@ -50,6 +50,7 @@
 - [v-if 和 v-for 一起使用？](./vue2#v-if-v-for)
 - [v-for key 的作用](./vue2#v-for-key)
 - [为什么 data 要是一个函数？](./vue2#data-function)
+- [style scoped 的作用和原理及深度选择](./vue2#style-scoped)
 
 ## [Vue3 相关](./vue3)
 

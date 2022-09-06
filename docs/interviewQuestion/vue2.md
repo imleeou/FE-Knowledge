@@ -339,3 +339,70 @@ const addItem = () => {
 :::warning 注意
 如果你为 `data` 使用了箭头函数，则 this 不会指向这个组件的实例
 :::
+
+## style scoped 的作用和原理及深度选择{#style-scoped}
+
+### 写法
+
+```vue
+<style scoped></style>
+```
+
+### 作用
+
+实现组件样式私有化，全局和组件之间不会造成样式污染，表示当前 style 属性只属于当前模块。
+
+### 原理
+
+我们先看例子 🌰：
+
+```vue
+// Header.vue （Home组件也基本相同）
+<template>
+  <div>Header</div>
+</template>
+
+<style scoped>
+div {
+  background-color: aqua;
+}
+</style>
+```
+
+![style-scoped](/images/vue2/style-scoped.png)
+
+通过观察 DOM 结构可以发现：vue 通过在 DOM 结构以及 css 样式上加上唯一的 attribute 标记`data-v-xxxx`为组件内 CSS 指定作用域，达到样式私有化，不污染全局的作用。
+
+点击 dom 也能看到对应的 style：
+
+```css
+div[data-v-08e32229] {
+  background-color: pink;
+}
+```
+
+### 深度选择
+
+在 Vue2 可以使用 `/deep/(不推荐)`、`>>>(不使用预处理器的情况)`、`::v-deep`
+
+```css
+/deep/.child {
+  background-color: pink;
+}
+
+.container >>> .child {
+  background-color: pink;
+}
+
+::v-deep .child {
+  background-color: pink;
+}
+```
+
+在 Vue3 中，我们不再支持 `>>>` 和 `/deep/` ，推荐大家使用 `::v-deep`，而且为了更加符合 CSS 的书写习惯，希望大家使用 `​::v-deep(.class)`​ 的书写规则。
+
+```css
+::v-deep(.child) {
+  background-color: pink;
+}
+```
