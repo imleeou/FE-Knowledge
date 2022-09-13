@@ -406,3 +406,41 @@ div[data-v-08e32229] {
   background-color: pink;
 }
 ```
+
+## dependencies 和 devDependencies 有什么不同？{#dependencies-devDependencies}
+
+- `dependencies`该配置项用来放置一些项目中实际运行需要用到的代码，如果没有该模块，项目会运行出错。
+- `devDependencies`放置本地开发过程中需要使用到的编译、打包、测试、格式化模块等。
+
+示例：
+
+```js
+npm install *** --save
+npm install ***  --save-dev
+```
+
+:::info 简写
+`--save` 可以简写为 -S，`--save-dev` 可以简写为 -D
+:::
+
+### 安装在 devDependencies 中的依赖，在项目执行 `build` 的时候会不会被打包进 dist 产物中？
+
+我们从正常的项目打包流程分析（不管是 webpack 还是 vite，打包的核心步骤都类似），这里从最简化的进行分析，只为了针对上述问题。
+
+1. 初始化配置
+2. 项目入口
+3. 依赖解析
+4. loader 处理
+5. ... ...
+
+看到这样的打包流程（集中关注 **第 2、3 点**），大家应该也意识到一点：项目打包跟 `devDependencies` 这个字段并没什么关系。这样一来，上述问题的答案也就很清晰了。只要是项目中用到的依赖（且安装到 node_modules 中），不管这个依赖是放在 `devDependencies` 还是放在 `dependencies` ，都会被打包工具解析、构建，最后都打进 dist 产物中。
+
+总结：生产打包 与 `devDependencies` 字段无关。`devDependencies` 中的 dev 并不是指我们 dev server 时候的 dev ，不能简单的把 dev 理解成当前项目的 “开发环境” 。
+
+`devDependencies` 和 `dependencies` 的区别核心体现在 npm 包 中。只要开发的项目是发 npm 包提供给外部、其他业务项目使用的，需要非常注意依赖的安装地方，因为搞不好很容易在业务使用中会出现 bug。而如果只是自己项目用，不需要发 npm 包的话，把依赖安装到 `devDependencies` 或者 `dependencies` 中，实质上是没有任何区别的。
+
+npm 依赖对比实验见下方原文地址。
+
+> 引用地址
+>
+> [你真的理解 devDependencies 和 dependencies 的区别吗？](https://juejin.cn/post/7135795969370619918)
