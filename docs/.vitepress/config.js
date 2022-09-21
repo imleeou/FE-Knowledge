@@ -47,6 +47,10 @@ export default {
               link: "/necessary/codeSpecification",
             },
             {
+              text: "nrm 的安装与使用",
+              link: "/necessary/nrm",
+            },
+            {
               text: "Markdown官方教程",
               link: "https://markdown.com.cn/",
             },
