@@ -4,7 +4,7 @@ export default {
     "前端知识、前端开发知识整理、前端开发面试、前端开发面试题大收集、前端面试集锦，适用于各阶段前端开发人员的知识库。",
   lang: "zh",
   lastUpdated: true,
-  base: "/FE-Knowledge/",
+  base: "/",
   head: [["link", { rel: "icon", href: "./favicon.ico" }]],
   themeConfig: {
     logo: "/fe-icon.png",
