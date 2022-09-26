@@ -8,7 +8,7 @@
 ## 找个地方记录，仅做为学习成长使用。
 
 > - 🛠 项目使用 [VitePress](https://vitepress.vuejs.org/) 搭建
-> - 🏠 部署在 GitHub Pages，预览地址 👉🏻 [点这里](https://imleeou.github.io/FE-Knowledge/)
+> - 🏠 部署在 GitHub Pages，预览地址 👉🏻 [点这里](https://fe.leeou.cc/)
 > - 📮 整理有不当之处, 欢迎 [PR](https://github.com/imleeou/FE-Knowledge/pulls) 或提出 [issue](https://github.com/imleeou/FE-Knowledge/issues)。
 
 
