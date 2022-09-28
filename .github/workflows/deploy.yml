@@ -7,18 +7,23 @@ on:
 
 jobs:
   deploy:
+    matrix:
+      node-version: [16]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
         with:
-          node-version: 16
+          version: 7
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
           cache: pnpm
-      - run: npm i -g pnpm && pnpm install --frozen-lockfile
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Build
         run: pnpm docs:build
