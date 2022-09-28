@@ -7,8 +7,9 @@ on:
 
 jobs:
   deploy:
-    matrix:
-      node-version: [16]
+    strategy:
+      matrix:
+        node-version: [16]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
