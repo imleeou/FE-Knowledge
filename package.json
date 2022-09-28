@@ -7,7 +7,7 @@
     "docs:dev": "vitepress dev docs --host",
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
-    "docs:preview": "yarn docs:build && yarn docs:serve"
+    "docs:preview": "pnpm docs:build && pnpm docs:serve"
   },
   "keywords": [],
   "author": "",
