@@ -2,7 +2,64 @@
 
 ## html5 有哪些新增标签？{#html5-new-tags}
 
-<article>、<aside>、<audio>、<bdi>、<canvas>、<dialog>、<mark>、<meter>、<nav>、<time>、<rt>等。
+为了更好地处理今天的互联网应用，HTML5 添加了很多新元素及功能，比如: 图形的绘制，多媒体内容，更好的页面结构，更好的形式处理，和几个 api 拖放元素，定位，包括网页应用程序缓存，存储，网络工作等。
+
+### 新的语义和结构元素
+
+| 标签           | 描述                                                           |
+| -------------- | -------------------------------------------------------------- |
+| `<article>`    | 定义页面独立的内容区域。                                       |
+| `<aside>`      | 定义页面的侧边栏内容。                                         |
+| `<bdi>`        | 允许您设置一段文本，使其脱离其父元素的文本方向设置。           |
+| `<command>`    | 定义命令按钮，比如单选按钮、复选框或按钮。                     |
+| `<details>`    | 用于描述文档或文档某个部分的细节。                             |
+| `<dialog>`     | 用于描述文档或文档某个部分的细节。                             |
+| `<summary>`    | 标签包含 details 元素的标题。                                  |
+| `<figure>`     | 规定独立的流内容（图像、图表、照片、代码等等）。               |
+| `<figcaption>` | 定义 `<figure>` 元素的标题。                                   |
+| `<footer>`     | 定义 section 或 document 的页脚。                              |
+| `<header>`     | 定义了文档的头部区域。                                         |
+| `<mark>`       | 定义带有记号的文本。                                           |
+| `<meter>`      | 定义度量衡。仅用于已知最大和最小值的度量。                     |
+| `<nav>`        | 定义导航链接的部分。                                           |
+| `<progress>`   | 定义任何类型的任务的进度。                                     |
+| `<ruby>`       | 定义 ruby 注释（中文注音或字符）。                             |
+| `<rt>`         | 定义字符（中文注音或字符）的解释或发音。                       |
+| `<rp>`         | 在 ruby 注释中使用，定义不支持 ruby 元素的浏览器所显示的内容。 |
+| `<section>`    | 定义文档中的节（section、区段）。                              |
+| `<time>`       | 定义日期或时间。                                               |
+| `<wbr>`        | 规定在文本中的何处适合添加换行符。                             |
+
+### `<canvas>` 新元素
+
+| 标签       | 描述                                                                 |
+| ---------- | -------------------------------------------------------------------- |
+| `<canvas>` | 标签定义图形，比如图表和其他图像。该标签基于 JavaScript 的绘图 API。 |
+
+### 新多媒体元素
+
+| 标签       | 描述                                                       |
+| ---------- | ---------------------------------------------------------- |
+| `<audio>`  | 定义音频内容                                               |
+| `<video>`  | 定义视频（video 或者 movie）                               |
+| `<source>` | 定义多媒体资源 `<video>` 和` <audio>`                          |
+| `<embed>`  | 定义嵌入的内容，比如插件。                                 |
+| `<track>`  | 为诸如 `<video>` 和 `<audio>` 元素之类的媒介规定外部文本轨道。 |
+
+### 新表单元素
+
+| 标签         | 描述                                                                 |
+| ------------ | -------------------------------------------------------------------- |
+| `<datalist>` | 定义选项列表。请与 input 元素配合使用该元素，来定义 input 可能的值。 |
+| `<keygen>`   | 规定用于表单的密钥对生成器字段。                                     |
+| `<output>`   | 定义不同类型的输出，比如脚本的输出。                                 |
+
+### 已移除的元素
+
+```js
+// 以下的 HTML 4.01 元素在HTML5中已经被删除:
+<acronym>、<applet>、<basefont>、<big>、<center>、<dir>、<font>、<frame>、<frameset>、<noframes>、<strike>、<tt>
+```
 
 ## 浏览器渲染机制{#browser-render}
 
@@ -42,7 +99,7 @@
 
 还有一些容易被忽略的操作：**获取一些特定属性的值**
 
-> offsetTop、offsetLeft、 offsetWidth、offsetHeight、scrollTop、scrollLeft、scrollWidth、scrollHeight、clientTop、clientLeft、clientWidth、clientHeight
+> offsetTop、 offsetLeft、 offsetWidth、offsetHeight、 scrollTop、scrollLeft、 scrollWidth、 scrollHeight、 clientTop、clientLeft、clientWidth、clientHeight
 
 这些属性有一个共性，就是需要通过即时计算得到。因此浏览器为了获取这些值，也会进行回流。除此还包括 getComputedStyle 方法，原理是一样的。
 
