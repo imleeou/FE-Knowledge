@@ -10,5 +10,5 @@ package-lock.json
 *.local
 .idea
 .vscode
-.vitepress/cache
-.vitepress/dist
+docs/.vitepress/cache
+docs/.vitepress/dist
