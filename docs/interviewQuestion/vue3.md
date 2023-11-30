@@ -4,18 +4,17 @@
 
 reactive 更适合定义复杂的数据类型（json/arr）、ref 适合定义基本数据类型（可接收基本数据类型和对象）
 
-### ref:
+### ref
 
 1. 函数参数可以是基本数据类型，也可以接受对象类型
 2. 如果参数是对象类型时，其实底层的本质还是 reactive,系统会自动根据我们给 ref 传入的值转换成：
+3. 在 template 中访问，系统会自动添加.value;在 js 中需要手动.value
+4. ref 响应式原理是依赖于 Object.defineProperty()的 get()和 set()的。
 
 ```js
 // ref函数只能操作浅层次的数据，把基本数据类型当作自己的属性值；深层次依赖于reactive
 ref(1) -> reactive({ value: 1 })
 ```
-
-3. 在 template 中访问，系统会自动添加.value;在 js 中需要手动.value
-4. ref 响应式原理是依赖于 Object.defineProperty()的 get()和 set()的。
 
 ### reactive
 
@@ -60,7 +59,7 @@ ref(1) -> reactive({ value: 1 })
 
 ![contrast](/images/api-contrast.png)
 
-> 引用来源：https://vue3js.cn/interview/vue3/composition.html
+> 引用来源：<https://vue3js.cn/interview/vue3/composition.html>
 
 ## watch 和 watchEffect 的使用和区别{#watch-watch-effect}
 
@@ -365,17 +364,13 @@ provide("read-only-count", readonly(count));
 export const myInjectionKey = Symbol();
 ```
 
-<div class="composition-api">
-
 ```js
 // 在供给方组件中
 import { provide } from "vue";
 import { myInjectionKey } from "./keys.js";
 
 provide(myInjectionKey, {
-	/*
-  要提供的数据
-*/
+	/*  要提供的数据 */
 });
 ```
 
