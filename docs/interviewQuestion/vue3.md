@@ -70,38 +70,26 @@ ref(1) -> reactive({ value: 1 })
 
 ```ts
 // 侦听单个来源
-function watch<T>(
-  source: WatchSource<T>,
-  callback: WatchCallback<T>,
-  options?: WatchOptions
-): StopHandle;
+function watch<T>(source: WatchSource<T>, callback: WatchCallback<T>, options?: WatchOptions): StopHandle;
 
 // 侦听多个来源
-function watch<T>(
-  sources: WatchSource<T>[],
-  callback: WatchCallback<T[]>,
-  options?: WatchOptions
-): StopHandle;
+function watch<T>(sources: WatchSource<T>[], callback: WatchCallback<T[]>, options?: WatchOptions): StopHandle;
 
-type WatchCallback<T> = (
-  value: T,
-  oldValue: T,
-  onCleanup: (cleanupFn: () => void) => void
-) => void;
+type WatchCallback<T> = (value: T, oldValue: T, onCleanup: (cleanupFn: () => void) => void) => void;
 
 type WatchSource<T> =
-  | Ref<T> // ref
-  | (() => T) // getter
-  | T extends object
-  ? T
-  : never; // 响应式对象
+	| Ref<T> // ref
+	| (() => T) // getter
+	| T extends object
+	? T
+	: never; // 响应式对象
 
 interface WatchOptions extends WatchEffectOptions {
-  immediate?: boolean; // 默认：false
-  deep?: boolean; // 默认：false
-  flush?: "pre" | "post" | "sync"; // 默认：'pre'
-  onTrack?: (event: DebuggerEvent) => void;
-  onTrigger?: (event: DebuggerEvent) => void;
+	immediate?: boolean; // 默认：false
+	deep?: boolean; // 默认：false
+	flush?: "pre" | "post" | "sync"; // 默认：'pre'
+	onTrack?: (event: DebuggerEvent) => void;
+	onTrigger?: (event: DebuggerEvent) => void;
 }
 ```
 
@@ -132,10 +120,10 @@ interface WatchOptions extends WatchEffectOptions {
 ```ts
 const state = reactive({ count: 0 });
 watch(
-  () => state.count,
-  (count, prevCount) => {
-    /* ... */
-  }
+	() => state.count,
+	(count, prevCount) => {
+		/* ... */
+	}
 );
 ```
 
@@ -144,7 +132,7 @@ watch(
 ```ts
 const count = ref(0);
 watch(count, (count, prevCount) => {
-  /* ... */
+	/* ... */
 });
 ```
 
@@ -153,7 +141,7 @@ watch(count, (count, prevCount) => {
 ```ts
 // 回调函数接受两个数组，分别对应来源数组中的新值和旧值：
 watch([fooRef, barRef], ([foo, bar], [prevFoo, prevBar]) => {
-  /* ... */
+	/* ... */
 });
 ```
 
@@ -164,11 +152,11 @@ watch([fooRef, barRef], ([foo, bar], [prevFoo, prevBar]) => {
 ```ts
 const number = reactive({ count: 0 });
 const countAdd = () => {
-  number.count++;
+	number.count++;
 };
 watch(number.count, (newValue, oldValue) => {
-  console.log("新的值:", newValue);
-  console.log("旧的值:", oldValue);
+	console.log("新的值:", newValue);
+	console.log("旧的值:", oldValue);
 });
 ```
 
@@ -187,17 +175,14 @@ watch(number.count, (newValue, oldValue) => {
 立即运行一个函数，同时响应式地追踪其依赖，并在依赖更改时重新执行。
 
 ```ts
-function watchEffect(
-  effect: (onCleanup: OnCleanup) => void,
-  options?: WatchEffectOptions
-): StopHandle;
+function watchEffect(effect: (onCleanup: OnCleanup) => void, options?: WatchEffectOptions): StopHandle;
 
 type OnCleanup = (cleanupFn: () => void) => void;
 
 interface WatchEffectOptions {
-  flush?: "pre" | "post" | "sync"; // 默认：'pre'
-  onTrack?: (event: DebuggerEvent) => void;
-  onTrigger?: (event: DebuggerEvent) => void;
+	flush?: "pre" | "post" | "sync"; // 默认：'pre'
+	onTrack?: (event: DebuggerEvent) => void;
+	onTrigger?: (event: DebuggerEvent) => void;
 }
 
 type StopHandle = () => void;
@@ -227,12 +212,12 @@ count.value++;
 
 ```ts
 watchEffect(async (onCleanup) => {
-  const { response, cancel } = doAsyncWork(id.value);
-  // `cancel` 会在 `id` 更改时调用
-  // 以便取消之前
-  // 未完成的请求
-  onCleanup(cancel);
-  data.value = await response;
+	const { response, cancel } = doAsyncWork(id.value);
+	// `cancel` 会在 `id` 更改时调用
+	// 以便取消之前
+	// 未完成的请求
+	onCleanup(cancel);
+	data.value = await response;
 });
 ```
 
@@ -250,3 +235,154 @@ stop();
 - `watch` 和 `watchEffect` 都能监听响应式数据的变化，不同的是它们监听数据变化的方式不同。
 - `watch` 会明确监听某一个响应数据，而 `watchEffect` 则是隐式的监听回调函数中响应数据。
 - `watch` 在响应数据初始化时是不会执行回调函数的，`watchEffect` 在响应数据初始化时就会立即执行回调函数。
+
+## 依赖注入：Provide 和 Inject 的使用{#provide-inject}
+
+### Provide（提供）
+
+为组件后代提供数据，需要使用到 `provide()` 函数：
+
+```vue
+<script setup>
+import { provide } from "vue";
+
+provide(/* 注入名 */ "message", /* 值 */ "hello!");
+</script>
+```
+
+`provide()` 函数接收两个参数。
+
+第一个参数被称为注入名，可以是一个字符串或是一个 `Symbol`。后代组件会用注入名来查找期望注入的值。一个组件可以多次调用 `provide()`，使用不同的注入名，注入不同的依赖值。
+第二个参数是提供的值，值可以是任意类型，包括响应式的状态，比如一个 `ref`：
+
+```js
+import { ref, provide } from "vue";
+
+const count = ref(0);
+provide("key", count);
+```
+
+除了在一个组件中提供依赖，我们还可以在整个应用层面提供依赖：
+
+```js
+import { createApp } from "vue";
+
+const app = createApp({});
+
+app.provide(/* 注入名 */ "message", /* 值 */ "hello!");
+```
+
+在应用级别提供的数据在该应用内的所有组件中都可以注入。这在你编写插件时会特别有用，因为插件一般都不会使用组件形式来提供值。
+
+### Inject（注入）
+
+要注入上层组件提供的数据，需使用 `inject()` 函数：
+
+```js
+import { inject } from "vue";
+
+const message = inject("message");
+```
+
+如果提供的值是一个 `ref`，注入进来的会是该 `ref` 对象，而不会自动解包为其内部的值。这使得注入方组件能够通过 `ref` 对象保持了和供给方的响应性链接。
+
+#### 注入默认值
+
+默认情况下，`inject` 假设传入的注入名会被某个祖先链上的组件提供。如果该注入名的确没有任何组件提供，则会抛出一个运行时警告。
+
+如果在注入一个值时不要求必须有提供者，那么我们应该声明一个默认值，和 `props` 类似：
+
+```js
+// 如果没有祖先组件提供 "message"
+// `value` 会是 "这是默认值"
+const value = inject("message", "这是默认值");
+```
+
+在一些场景中，默认值可能需要通过调用一个函数或初始化一个类来取得。为了避免在用不到默认值的情况下进行不必要的计算或产生副作用，我们可以使用工厂函数来创建默认值：
+
+```js
+const value = inject("key", () => new ExpensiveClass(), true);
+```
+
+第三个参数表示默认值应该被当作一个工厂函数。
+
+### 和响应式数据配合使用
+
+当提供 / 注入响应式的数据时，**建议尽可能将任何对响应式状态的变更都保持在供给方组件中**。这样可以确保所提供状态的声明和变更操作都内聚在同一个组件内，使其更容易维护。
+
+有的时候，我们可能需要在注入方组件中更改数据。在这种情况下，我们推荐在供给方组件内声明并提供一个更改数据的方法函数：
+
+```vue
+<!-- 在供给方组件内 -->
+<script setup>
+import { provide, ref } from "vue";
+
+const location = ref("North Pole");
+
+function updateLocation() {
+	location.value = "South Pole";
+}
+
+provide("location", {
+	location,
+	updateLocation
+});
+</script>
+```
+
+```vue
+<!-- 在注入方组件 -->
+<script setup>
+import { inject } from "vue";
+
+const { location, updateLocation } = inject("location");
+</script>
+
+<template>
+	<button @click="updateLocation">{{ location }}</button>
+</template>
+```
+
+最后，如果你想确保提供的数据不能被注入方的组件更改，你可以使用 `readonly()` 来包装提供的值。
+
+```vue
+<script setup>
+import { ref, provide, readonly } from "vue";
+
+const count = ref(0);
+provide("read-only-count", readonly(count));
+</script>
+```
+
+### 使用 `Symbol` 作注入名
+
+如果你正在构建大型的应用，包含非常多的依赖提供，或者你正在编写提供给其他开发者使用的组件库，建议最好使用 `Symbol` 来作为注入名以避免潜在的冲突。
+
+我们通常推荐在一个单独的文件中导出这些注入名 `Symbol`：
+
+```js
+// keys.js
+export const myInjectionKey = Symbol();
+```
+
+<div class="composition-api">
+
+```js
+// 在供给方组件中
+import { provide } from "vue";
+import { myInjectionKey } from "./keys.js";
+
+provide(myInjectionKey, {
+	/*
+  要提供的数据
+*/
+});
+```
+
+```js
+// 注入方组件
+import { inject } from "vue";
+import { myInjectionKey } from "./keys.js";
+
+const injected = inject(myInjectionKey);
+```
