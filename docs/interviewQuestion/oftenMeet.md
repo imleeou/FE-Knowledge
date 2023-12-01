@@ -34,45 +34,49 @@ console.log((0.1 * 10 + 0.2 * 10) / 10); // 0.3
 
 ```js
 function add(a, b) {
-  return parseFloat((a + b).toFixed(2));
+	return parseFloat((a + b).toFixed(2));
 }
 console.log(add(0.1, 0.2) === 0.3); // true
 ```
 
 ## == 和 === 有什么区别？{#equal-and-strict-equal}
 
-1. 对于 string、number 等基础类型，== 和 === 是有区别的
+在`JavaScript`中，`==` 和 `===` 都是用来比较两个值是否相等的运算符，但它们在比较时使用不同的类型检查和转换规则。
 
-- a）不同类型间比较，== 之比较 "转化成同一类型后的值" 看 "值" 是否相等，=== 如果类型不同，其结果就是不等。
+1. 对于基本数据类型，`==` 和 `===` 的主要区别在于 == 在比较时会进行类型转换，而 `===` 不会。
+
+- a）不同类型间比较，`==` 之比较 "转化成同一类型后的值" 看 "值" 是否相等，`===` 如果类型不同，其结果就是不等。
 - b）同类型比较，直接进行 "值" 比较，两者结果一样。
-2. 对于 Array,Object 等高级类型，== 和 === 是没有区别的
-
-进行 "指针地址" 比较
-
-3. 基础类型与高级类型，== 和 === 是有区别的
-
-- a）对于 ==，将高级转化为基础类型，进行 "值" 比较
-- b）因为类型不同，=== 结果为 false
-4. != 为 == 的非运算，!== 为 === 的非运算
 
 ```js
-var num=1；
+const num = 1；
+const str = "1"；
+const test = 1；
 
-var str="1"；
-
-var test=1；
-
-test == num   //true　相同类型　相同值 
-
-test === num  //true　相同类型　相同值 
-
-test !== num  //false test与num类型相同，其值也相同,　非运算肯定是false 
-
-num == str   //true 　把str转换为数字，检查其是否相等。 
-
-num != str   //false  == 的 非运算 
-
-num === str  //false  类型不同，直接返回false 
-
-num !== str  //true   num 与 str类型不同 意味着其两者不等　非运算自然是true啦
+console.log(test == num)   //true　相同类型　相同值
+console.log(test === num)  //true　相同类型　相同值
+console.log(test !== num)  //false test与num类型相同，其值也相同,　非运算肯定是false
+console.log(num == str)  //true 　把str转换为数字，检查其是否相等。
+console.log(num != str)  //false  == 的 非运算
+console.log(num === str)  //false  类型不同，直接返回false
+console.log(num !== str)  //true   num 与 str类型不同 意味着其两者不等　非运算自然是true啦
 ```
+
+2. 对于复杂数据类型，无论是使用 `==` 还是 `===`，比较的都是引用地址，而不是值。当你比较两个对象时，实际比较的是它们是否引用了内存中的同一个位置。
+
+```js
+[] == [];             // false，因为两个空数组引用不同的内存地址
+[] === [];            // false，同上
+{} == {};             // false，两个空对象引用不同的内存地址
+{} === {};            // false，同上
+
+const obj1 = {};
+const obj2 = obj1;
+
+obj1 == obj2;         // true，因为它们引用同一个对象
+obj1 === obj2;        // true，同上
+```
+
+对于复杂数据类型，`==` 和 `===` 之间没有实际的区别，因为不涉及类型转换问题。如果两个变量引用同一个对象或函数，则它们相等；如果它们引用不同的内存块，即使内容完全相同，它们也不相等。
+
+因此，当比较基本数据类型时，`===` 比 `==` 更加可靠，因为它不会执行可能导致意外结果的类型强制转换。而对于复杂数据类型，两者没有区别，因为比较的是引用地址。
