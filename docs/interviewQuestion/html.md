@@ -42,7 +42,7 @@
 | ---------- | ---------------------------------------------------------- |
 | `<audio>`  | 定义音频内容                                               |
 | `<video>`  | 定义视频（video 或者 movie）                               |
-| `<source>` | 定义多媒体资源 `<video>` 和` <audio>`                          |
+| `<source>` | 定义多媒体资源 `<video>` 和`<audio>`                          |
 | `<embed>`  | 定义嵌入的内容，比如插件。                                 |
 | `<track>`  | 为诸如 `<video>` 和 `<audio>` 元素之类的媒介规定外部文本轨道。 |
 
@@ -209,4 +209,3 @@ container.style.color = 'red'
 ...（省略了许多类似的后续操作）
 container.style.display = 'block'
 ```
-

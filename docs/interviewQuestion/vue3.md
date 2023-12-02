@@ -77,18 +77,18 @@ function watch<T>(sources: WatchSource<T>[], callback: WatchCallback<T[]>, optio
 type WatchCallback<T> = (value: T, oldValue: T, onCleanup: (cleanupFn: () => void) => void) => void;
 
 type WatchSource<T> =
-	| Ref<T> // ref
-	| (() => T) // getter
-	| T extends object
-	? T
-	: never; // 响应式对象
+ | Ref<T> // ref
+ | (() => T) // getter
+ | T extends object
+ ? T
+ : never; // 响应式对象
 
 interface WatchOptions extends WatchEffectOptions {
-	immediate?: boolean; // 默认：false
-	deep?: boolean; // 默认：false
-	flush?: "pre" | "post" | "sync"; // 默认：'pre'
-	onTrack?: (event: DebuggerEvent) => void;
-	onTrigger?: (event: DebuggerEvent) => void;
+ immediate?: boolean; // 默认：false
+ deep?: boolean; // 默认：false
+ flush?: "pre" | "post" | "sync"; // 默认：'pre'
+ onTrack?: (event: DebuggerEvent) => void;
+ onTrigger?: (event: DebuggerEvent) => void;
 }
 ```
 
@@ -119,10 +119,10 @@ interface WatchOptions extends WatchEffectOptions {
 ```ts
 const state = reactive({ count: 0 });
 watch(
-	() => state.count,
-	(count, prevCount) => {
-		/* ... */
-	}
+ () => state.count,
+ (count, prevCount) => {
+  /* ... */
+ }
 );
 ```
 
@@ -131,7 +131,7 @@ watch(
 ```ts
 const count = ref(0);
 watch(count, (count, prevCount) => {
-	/* ... */
+ /* ... */
 });
 ```
 
@@ -140,7 +140,7 @@ watch(count, (count, prevCount) => {
 ```ts
 // 回调函数接受两个数组，分别对应来源数组中的新值和旧值：
 watch([fooRef, barRef], ([foo, bar], [prevFoo, prevBar]) => {
-	/* ... */
+ /* ... */
 });
 ```
 
@@ -151,11 +151,11 @@ watch([fooRef, barRef], ([foo, bar], [prevFoo, prevBar]) => {
 ```ts
 const number = reactive({ count: 0 });
 const countAdd = () => {
-	number.count++;
+ number.count++;
 };
 watch(number.count, (newValue, oldValue) => {
-	console.log("新的值:", newValue);
-	console.log("旧的值:", oldValue);
+ console.log("新的值:", newValue);
+ console.log("旧的值:", oldValue);
 });
 ```
 
@@ -179,9 +179,9 @@ function watchEffect(effect: (onCleanup: OnCleanup) => void, options?: WatchEffe
 type OnCleanup = (cleanupFn: () => void) => void;
 
 interface WatchEffectOptions {
-	flush?: "pre" | "post" | "sync"; // 默认：'pre'
-	onTrack?: (event: DebuggerEvent) => void;
-	onTrigger?: (event: DebuggerEvent) => void;
+ flush?: "pre" | "post" | "sync"; // 默认：'pre'
+ onTrack?: (event: DebuggerEvent) => void;
+ onTrigger?: (event: DebuggerEvent) => void;
 }
 
 type StopHandle = () => void;
@@ -211,12 +211,12 @@ count.value++;
 
 ```ts
 watchEffect(async (onCleanup) => {
-	const { response, cancel } = doAsyncWork(id.value);
-	// `cancel` 会在 `id` 更改时调用
-	// 以便取消之前
-	// 未完成的请求
-	onCleanup(cancel);
-	data.value = await response;
+ const { response, cancel } = doAsyncWork(id.value);
+ // `cancel` 会在 `id` 更改时调用
+ // 以便取消之前
+ // 未完成的请求
+ onCleanup(cancel);
+ data.value = await response;
 });
 ```
 
@@ -319,12 +319,12 @@ import { provide, ref } from "vue";
 const location = ref("North Pole");
 
 function updateLocation() {
-	location.value = "South Pole";
+ location.value = "South Pole";
 }
 
 provide("location", {
-	location,
-	updateLocation
+ location,
+ updateLocation
 });
 </script>
 ```
@@ -338,7 +338,7 @@ const { location, updateLocation } = inject("location");
 </script>
 
 <template>
-	<button @click="updateLocation">{{ location }}</button>
+ <button @click="updateLocation">{{ location }}</button>
 </template>
 ```
 
@@ -370,7 +370,7 @@ import { provide } from "vue";
 import { myInjectionKey } from "./keys.js";
 
 provide(myInjectionKey, {
-	/*  要提供的数据 */
+ /*  要提供的数据 */
 });
 ```
 
