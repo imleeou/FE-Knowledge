@@ -21,78 +21,78 @@ const arr = [1, 12, 24, 41, 43, 101, 12, 41];
 // 去重结果 [1, 12, 24, 41, 43, 101]
 ```
 
-1. 利用 ES6 的 Set 对象
+### 利用 ES6 的 Set 对象
 
 ```js
 console.log([...new Set(arr)]);
 ```
 
-2. 双层循环对比配合 splice
+### 双层循环对比配合 splice
 
 ```js
 const removeDuplicate = (array) => {
-  array.forEach((x, y) => {
-    array.forEach((a, b) => {
-      if (x === a && y !== b) {
-        array.splice(b, 1);
-      }
-    });
+ array.forEach((x, y) => {
+  array.forEach((a, b) => {
+   if (x === a && y !== b) {
+    array.splice(b, 1);
+   }
   });
-  return array;
+ });
+ return array;
 };
 ```
 
-3. filter 方法配合 indexOf()
+### filter 方法配合 indexOf()
 
 ```js
 const removeDuplicate = (array) => {
-  return array.filter((number, index) => {
-    return array.indexOf(number) === index;
-  });
+ return array.filter((number, index) => {
+  return array.indexOf(number) === index;
+ });
 };
 ```
 
-4. 遍历数组配合 includes 方法
+### 遍历数组配合 includes 方法
 
 ```js
 const removeDuplicate = (array) => {
-  let newArr = [];
-  array.forEach((number) => {
-    if (!newArr.includes(number)) {
-      newArr.push(number);
-    }
-  });
-  return newArr;
-};
-```
-
-5. 遍历数组配合 indexOf（与第 3 种类似）
-
-```js
-const removeDuplicate = (array) => {
-  let newArr = [];
-  array.forEach((number) => {
-    if (newArr.indexOf(number) === -1) {
-      newArr.push(number);
-    }
-  });
-  return newArr;
-};
-```
-
-6. 利用对象 key 的唯一性
-
-```js
-const removeDuplicate = (array) => {
-  let newArr = [];
-  let obj = {};
-  array.forEach((number) => {
-    obj[number] = number;
-  });
-  for (let key in obj) {
-    newArr.push(obj[key]);
+ let newArr = [];
+ array.forEach((number) => {
+  if (!newArr.includes(number)) {
+   newArr.push(number);
   }
-  return newArr;
+ });
+ return newArr;
+};
+```
+
+### 遍历数组配合 indexOf（与第 3 种类似）
+
+```js
+const removeDuplicate = (array) => {
+ let newArr = [];
+ array.forEach((number) => {
+  if (newArr.indexOf(number) === -1) {
+   newArr.push(number);
+  }
+ });
+ return newArr;
+};
+```
+
+### 利用对象 key 的唯一性
+
+```js
+const removeDuplicate = (array) => {
+ let newArr = [];
+ let obj = {};
+ array.forEach((number) => {
+  obj[number] = number;
+ });
+ for (let key in obj) {
+  newArr.push(obj[key]);
+ }
+ return newArr;
 };
 ```
 
@@ -104,58 +104,58 @@ const arr = [10010, 1, 12, 24, 41, 43, 101, 10086, 12];
 // 排序结果 [1, 12, 24, 41, 43, 101]
 ```
 
-1. sort 方法
+### sort 方法
 
 ```js
 const sortArray = (array) => {
-  return array.sort((a, b) => {
-    return a - b; // 升序
-    // return b - a;  降序
-  });
+ return array.sort((a, b) => {
+  return a - b; // 升序
+  // return b - a;  降序
+ });
 };
 ```
 
-2. 双重循环更改数组顺序
+### 双重循环更改数组顺序
 
 ```js
 const sortArray = (array) => {
+ array.forEach((n, i) => {
+  array.forEach((m, idx) => {
+   if (n < m) {
+    // 升序
+    // if (n > m) {   // 降序
+    const arrI = array[i];
+    array[i] = m;
+    array[idx] = arrI;
+   }
+  });
+ });
+ return array;
+};
+```
+
+### 插入排序
+
+```js
+const sortArray = (array) => {
+ if (array.length) {
+  let newArr = [];
   array.forEach((n, i) => {
-    array.forEach((m, idx) => {
-      if (n < m) {
-        // 升序
-        // if (n > m) {   // 降序
-        const arrI = array[i];
-        array[i] = m;
-        array[idx] = arrI;
-      }
-    });
+   newArr.push(n);
+   newArr.forEach((m, idx) => {
+    if (n < m) {
+     // 升序
+     //  if (n > m) {      // 降序
+     const arrI = newArr[i];
+     newArr[i] = m;
+     newArr[idx] = arrI;
+    }
+   });
   });
-  return array;
-};
-```
-
-3. 插入排序
-
-```js
-const sortArray = (array) => {
-  if (array.length) {
-    let newArr = [];
-    array.forEach((n, i) => {
-      newArr.push(n);
-      newArr.forEach((m, idx) => {
-        if (n < m) {
-          // 升序
-          //  if (n > m) {      // 降序
-          const arrI = newArr[i];
-          newArr[i] = m;
-          newArr[idx] = arrI;
-        }
-      });
-    });
-    return newArr;
-  } else {
-    return [];
-  }
+  return newArr;
+ } else {
+  return [];
+ }
 };
 ```
 
@@ -258,13 +258,13 @@ JavaScript 语言的一大特点就是**单线程**。作为浏览器脚本语�
 
 > 引用地址
 >
-> https://www.ruanyifeng.com/blog/2014/10/event-loop.html
+> <https://www.ruanyifeng.com/blog/2014/10/event-loop.html>
 >
-> https://vue3js.cn/interview/JavaScript/event_loop.html
+> <https://vue3js.cn/interview/JavaScript/event_loop.html>
 
 ## 哪些是宏任务，哪些是微任务？{#micro-task-macro-task}
 
-### 宏任务（macro-task）:
+### 宏任务（macro-task）
 
 - script(整体代码)
 
@@ -278,7 +278,7 @@ JavaScript 语言的一大特点就是**单线程**。作为浏览器脚本语�
 
 - UI render
 
-### 微任务（micro-task）:
+### 微任务（micro-task）
 
 - process.nextTick
 
@@ -296,17 +296,17 @@ JavaScript 语言的一大特点就是**单线程**。作为浏览器脚本语�
 
 ```js
 const throttle = (func, wait = 1000) => {
-  let timer = null;
-  return function (...args) {
-    if (timer) {
-      return;
-    }
-    timer = setTimeout(() => {
-      func.apply(this, args);
-      clearTimeout(timer);
-      timer = null;
-    }, wait);
-  };
+ let timer = null;
+ return function (...args) {
+  if (timer) {
+   return;
+  }
+  timer = setTimeout(() => {
+   func.apply(this, args);
+   clearTimeout(timer);
+   timer = null;
+  }, wait);
+ };
 };
 ```
 
@@ -316,16 +316,16 @@ const throttle = (func, wait = 1000) => {
 
 ```js
 const debounce = (func, wait = 1000) => {
-  let timer = null;
-  return function (...args) {
-    if (timer) {
-      clearTimeout(timer);
-      timer = null;
-    }
-    timer = setTimeout(() => {
-      func.apply(this, args);
-    }, wait);
-  };
+ let timer = null;
+ return function (...args) {
+  if (timer) {
+   clearTimeout(timer);
+   timer = null;
+  }
+  timer = setTimeout(() => {
+   func.apply(this, args);
+  }, wait);
+ };
 };
 ```
 
@@ -339,11 +339,11 @@ const debounce = (func, wait = 1000) => {
 
 ```js
 Array.prototype.methods = function () {
-  console.log(this.length);
+ console.log(this.length);
 };
 const arr = [1, 3, 5, "a"];
 for (const index in arr) {
-  console.log("index->", index, typeof index);
+ console.log("index->", index, typeof index);
 }
 // index-> 0 string
 // index-> 1 string
@@ -352,12 +352,12 @@ for (const index in arr) {
 // index-> methods string
 
 const obj = {
-  a: 1,
-  b: 2,
-  c: 3,
+ a: 1,
+ b: 2,
+ c: 3
 };
 for (const key in obj) {
-  console.log("key->", key);
+ console.log("key->", key);
 }
 // key-> a
 // key-> b
@@ -378,11 +378,11 @@ for (const key in obj) {
 
 ```js
 Array.prototype.methods = function () {
-  console.log(this.length);
+ console.log(this.length);
 };
 const arr = [1, 3, 5, "a"];
 for (const value of arr) {
-  console.log("value->", value);
+ console.log("value->", value);
 }
 // value-> 1
 // value-> 3
@@ -390,12 +390,12 @@ for (const value of arr) {
 // value-> a
 
 const obj = {
-  a: 1,
-  b: 2,
-  c: 3,
+ a: 1,
+ b: 2,
+ c: 3
 };
 for (const v of obj) {
-  console.log("v->", v);
+ console.log("v->", v);
 }
 // TypeError: obj is not iterable
 ```
@@ -474,7 +474,7 @@ elem.addEventListener(..., true)
 
 当一个内部函数被调用，就会形成闭包，闭包就是能够读取其他函数内部变量的函数。
 
-### 闭包作用：
+### 闭包作用
 
 局部变量无法共享和长久的保存，而全局变量可能造成变量污染，所以我们希望有一种机制既可以长久的保存变量又不会造成全局污染。
 
@@ -573,15 +573,13 @@ Object.prototype.toString.call(window); //"[object Window]"
 
 ```js
 function getType(obj) {
-  let type = typeof obj;
-  if (type !== "object") {
-    // 先进行typeof判断，如果是基础数据类型，直接返回
-    return type;
-  }
-  // 对于typeof返回结果是object的，再进行如下的判断，正则返回结果
-  return Object.prototype.toString
-    .call(obj)
-    .replace(/^\[object (\S+)\]$/, "$1");
+ let type = typeof obj;
+ if (type !== "object") {
+  // 先进行typeof判断，如果是基础数据类型，直接返回
+  return type;
+ }
+ // 对于typeof返回结果是object的，再进行如下的判断，正则返回结果
+ return Object.prototype.toString.call(obj).replace(/^\[object (\S+)\]$/, "$1");
 }
 
 getType([]); // "Array" typeof []是object，因此toString返回
@@ -595,7 +593,7 @@ getType(/123/g); //"RegExp" toString返回
 ```
 
 > 引用地址
-> https://github.com/febobo/web-interview/issues/65
+> <https://github.com/febobo/web-interview/issues/65>
 
 ## 浏览器垃圾回收机制 {#browser-garbage-collection}
 
@@ -652,8 +650,8 @@ JavaScript 有自动垃圾收集机制，垃圾收集器会每隔一段时间就
 ```js
 // 创建一个对象person，他有两个指向属性age和name的引用
 var person = {
-  age: 12,
-  name: "aaaa",
+ age: 12,
+ name: "aaaa"
 };
 
 person.name = null; // 虽然name设置为null，但因为person对象还有指向name的引用，因此name不会回收
@@ -670,12 +668,12 @@ p = null; //原person对象已经没有引用，很快会被回收
 
 ```js
 function cycle() {
-  var o1 = {};
-  var o2 = {};
-  o1.a = o2;
-  o2.a = o1;
+ var o1 = {};
+ var o2 = {};
+ o1.a = o2;
+ o2.a = o1;
 
-  return "cycle reference!";
+ return "cycle reference!";
 }
 
 cycle();
@@ -688,7 +686,7 @@ cycle();
 ```js
 var div = document.createElement("div");
 div.onclick = function () {
-  console.log("click");
+ console.log("click");
 };
 ```
 
@@ -706,10 +704,10 @@ div.onclick = function () {
 
 整个标记清除算法大致过程就像下面这样：
 
-> 1.  垃圾收集器在运行时会给内存中的所有变量都加上一个标记，假设内存中所有对象都是垃圾，全标记为 0
-> 2.  然后从各个根对象开始遍历，把不是垃圾的节点改成 1
-> 3.  清理所有标记为 0 的垃圾，销毁并回收它们所占用的内存空间
-> 4.  最后，把所有内存中对象标记修改为 0，等待下一轮垃圾回收
+> 1. 垃圾收集器在运行时会给内存中的所有变量都加上一个标记，假设内存中所有对象都是垃圾，全标记为 0
+> 2. 然后从各个根对象开始遍历，把不是垃圾的节点改成 1
+> 3. 清理所有标记为 0 的垃圾，销毁并回收它们所占用的内存空间
+> 4. 最后，把所有内存中对象标记修改为 0，等待下一轮垃圾回收
 
 所以上面的例子就可以正确被垃圾回收处理了。
 
@@ -768,7 +766,7 @@ Scavenge 算法将新生代堆分为两部分，分别叫`from-space`（使用�
 
 所以在老生代空间中采用了 Mark-Sweep（标记清除） 和 Mark-Compact（标记整理） 算法。
 
-**标记清除（Mark-Sweep）**
+#### 标记清除（Mark-Sweep）
 
 Mark-Sweep 处理时分为两阶段，标记阶段和清理阶段，看起来与 Scavenge 类似，不同的是，Scavenge 算法是复制活动对象，而由于在老生代中活动对象占大多数，所以 Mark-Sweep 在标记了活动对象和非活动对象之后，直接把非活动对象清除。
 
@@ -779,7 +777,7 @@ Mark-Sweep 处理时分为两阶段，标记阶段和清理阶段，看起来与
 
 这里遗留了一个问题，被清除的对象遍布于各内存地址，产生很多内存碎片。
 
-**标记整理（Mark-Compact）**
+#### 标记整理（Mark-Compact）
 
 由于 Mark-Sweep 完成之后，老生代的内存中产生了很多内存碎片，若不清理这些内存碎片，如果出现需要分配一个大对象的时候，这时所有的碎片空间都完全无法完成分配，就会提前触发垃圾回收，而这次回收其实不是必要的。
 
@@ -789,11 +787,11 @@ Mark-Sweep 处理时分为两阶段，标记阶段和清理阶段，看起来与
 
 > 引用地址：
 >
-> https://muyiy.cn/blog/1/1.4.html#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95
+> <https://muyiy.cn/blog/1/1.4.html#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95>
 >
-> https://juejin.cn/post/6981588276356317214#heading-4
+> <https://juejin.cn/post/6981588276356317214#heading-4>
 >
-> https://github.com/yacan8/blog/issues/33
+> <https://github.com/yacan8/blog/issues/33>
 
 ## JS 深拷贝和浅拷贝的实现及区别{#deep-copy-and-shallow-copy}
 
@@ -805,7 +803,7 @@ Mark-Sweep 处理时分为两阶段，标记阶段和清理阶段，看起来与
 
 即浅拷贝是拷贝一层，深层次的引用类型则共享内存地址，修改值会影响原始值。
 
-1. 直接赋值
+#### 直接赋值
 
 ```js
 let one = { a: 1, obj: { b: 2 } };
@@ -815,7 +813,7 @@ one.obj.b = 22;
 console.log("two->", two); // { a: 11, obj: { b: 22 } }
 ```
 
-2. 拓展运算符
+#### 拓展运算符
 
 ```js
 let one = { a: 1, obj: { b: 2 } };
@@ -825,7 +823,7 @@ one.obj.b = 22;
 console.log("two->", two); // { a: 1, obj: { b: 22 } }
 ```
 
-3. Object.assign
+#### Object.assign
 
 ```js
 let one = { a: 1, obj: { b: 2 } };
@@ -836,7 +834,7 @@ console.log("two->", two); // { a: 1, obj: { b: 22 } }
 // 注意：当object只有一层的时候，是深拷贝
 ```
 
-4. slice()
+#### slice()
 
 ```js
 //slice 不会修改原数组，只会返回一个浅复制了原数组中的元素的一个新数组。
@@ -847,7 +845,7 @@ console.log("arr->", arr); // ["apple", "orange", "banana"]
 console.log("shallowArr->", shallowArr); // ["apple", "lemon", "banana"]
 ```
 
-5. concat()
+#### concat()
 
 ```js
 const arr = ["apple", "orange", "banana"];
@@ -857,7 +855,7 @@ console.log("arr->", arr); // ["apple", "orange", "banana"]
 console.log("shallowArr->", shallowArr); // ["apple", "lemon", "banana"]
 ```
 
-6. Lodash：[clone()](https://www.lodashjs.com/docs/lodash.clone)
+#### Lodash：[clone()](https://www.lodashjs.com/docs/lodash.clone)
 
 ```js
 const objects = [{ a: 1 }, { b: 2 }];
@@ -871,15 +869,15 @@ console.log(shallow[0] === objects[0]);
 
 深拷贝开辟一个新的栈，两个对象属完成相同，但是对应两个不同的地址，修改一个对象的属性，不会改变另一个对象的属性。
 
-1. JSON.parse(JSON.stringify(obj))
+#### JSON.parse(JSON.stringify(obj))
 
 ```js
 const obj1 = {
-  name: "nike",
-  level: {
-    football: 2,
-    basketball: 3,
-  },
+ name: "nike",
+ level: {
+  football: 2,
+  basketball: 3
+ }
 };
 
 let obj2 = JSON.parse(JSON.stringify(obj1));
@@ -892,14 +890,14 @@ console.log("obj1->", obj1); // { name: "nike", level: { football: 2, basketball
 
 ```js
 const obj1 = {
-  name: "nike",
-  level: {
-    football: 2,
-    basketball: 3,
-  },
-  udf: undefined,
-  fn: function () {},
-  symbol: Symbol("s"),
+ name: "nike",
+ level: {
+  football: 2,
+  basketball: 3
+ },
+ udf: undefined,
+ fn: function () {},
+ symbol: Symbol("s")
 };
 
 let obj2 = JSON.parse(JSON.stringify(obj1));
@@ -910,30 +908,30 @@ console.log("obj1->", obj1); // { name: "nike", level: { football: 2, basketball
 console.log("obj2->", obj2); // { name: "tom", level: { football: 1, basketball: 3 } }
 ```
 
-2. 递归赋值
+#### 递归赋值
 
 ```js
 function deepClone(obj) {
-  let objClone = Array.isArray(obj) ? [] : {};
-  if (obj && typeof obj === "object") {
-    for (key in obj) {
-      //判断是否为自身属性
-      if (obj.hasOwnProperty(key)) {
-        //判断ojb子元素是否为对象，如果是，递归复制
-        if (obj[key] && typeof obj[key] === "object") {
-          objClone[key] = deepClone(obj[key]);
-        } else {
-          //如果不是，简单复制
-          objClone[key] = obj[key];
-        }
-      }
+ let objClone = Array.isArray(obj) ? [] : {};
+ if (obj && typeof obj === "object") {
+  for (key in obj) {
+   //判断是否为自身属性
+   if (obj.hasOwnProperty(key)) {
+    //判断ojb子元素是否为对象，如果是，递归复制
+    if (obj[key] && typeof obj[key] === "object") {
+     objClone[key] = deepClone(obj[key]);
+    } else {
+     //如果不是，简单复制
+     objClone[key] = obj[key];
     }
+   }
   }
-  return objClone;
+ }
+ return objClone;
 }
 ```
 
-3. Lodash：[cloneDeep()](https://www.lodashjs.com/docs/lodash.cloneDeep#_clonedeepvalue)
+#### Lodash：[cloneDeep()](https://www.lodashjs.com/docs/lodash.cloneDeep#_clonedeepvalue)
 
 ```js
 const _ = require("lodash");
@@ -977,11 +975,11 @@ let obj2 = _.cloneDeep(obj1);
 
 ```js
 const person = {
-  name: "nike",
-  age: 13,
-  say: function () {
-    return `我叫${this.name}，${this.age}岁`;
-  },
+ name: "nike",
+ age: 13,
+ say: function () {
+  return `我叫${this.name}，${this.age}岁`;
+ }
 };
 console.log(person.say()); // 我叫nike，13岁
 ```
@@ -992,7 +990,7 @@ console.log(person.say()); // 我叫nike，13岁
 
 ```js
 function fn() {
-  return this;
+ return this;
 }
 console.log("fn->", fn()); // Window{}
 ```
@@ -1002,7 +1000,7 @@ console.log("fn->", fn()); // Window{}
 ```js
 "use strict";
 function fn() {
-  return this;
+ return this;
 }
 console.log("fn->", fn()); // undefined
 ```
@@ -1024,15 +1022,15 @@ console.log("fn->", fn()); // undefined
 
 ```js
 const nike = {
-  name: "nike",
-  age: 18,
-  say: function (from = "us") {
-    return `Im ${this.name},${this.age} years old,from ${from}`;
-  },
+ name: "nike",
+ age: 18,
+ say: function (from = "us") {
+  return `Im ${this.name},${this.age} years old,from ${from}`;
+ }
 };
 const tom = {
-  name: "tom",
-  age: 14,
+ name: "tom",
+ age: 14
 };
 console.log(nike.say()); // Im nike,18 years old,from us
 ```
@@ -1041,15 +1039,15 @@ console.log(nike.say()); // Im nike,18 years old,from us
 
 ```js
 const nike = {
-  name: "nike",
-  age: 18,
-  say: function (from = "us") {
-    return `Im ${this.name},${this.age} years old,from ${from}`;
-  },
+ name: "nike",
+ age: 18,
+ say: function (from = "us") {
+  return `Im ${this.name},${this.age} years old,from ${from}`;
+ }
 };
 const tom = {
-  name: "tom",
-  age: 14,
+ name: "tom",
+ age: 14
 };
 console.log(nike.say.call(tom, "uk")); //Im tom,14 years old,from uk
 console.log(nike.say.apply(tom, ["china"])); //Im tom,14 years old,from china
@@ -1068,12 +1066,12 @@ console.log(nike.say.bind(tom, "kr")()); // Im tom,14 years old,from kr
 
 ```js
 function Person(name, age, gender) {
-  this.name = name;
-  this.age = age;
-  this.gender = gender;
+ this.name = name;
+ this.age = age;
+ this.gender = gender;
 }
 Person.prototype.say = function () {
-  console.log(`my name is ${this.name}`);
+ console.log(`my name is ${this.name}`);
 };
 const tom = new Person("tom", 22, "man");
 console.log("tom->", tom); // Person {name: "tom", age: 22, gender:'man'}
@@ -1089,8 +1087,8 @@ tom.say(); // my name is tom
 
 ```js
 function Test(name) {
-  this.name = name;
-  return 1;
+ this.name = name;
+ return 1;
 }
 const t = new Test("xxx");
 console.log(t.name); // 'xxx'
@@ -1102,9 +1100,9 @@ console.log(t.name); // 'xxx'
 
 ```js
 function Test(name) {
-  this.name = name;
-  console.log(this); // Test { name: 'xxx' }
-  return { age: 26 };
+ this.name = name;
+ console.log(this); // Test { name: 'xxx' }
+ return { age: 26 };
 }
 const t = new Test("xxx");
 console.log(t); // { age: 26 }
@@ -1120,7 +1118,7 @@ console.log(t.name); // 'undefined'
 3. 将步骤 1 新创建的对象作为**this**的上下文 ；
 4. 如果该函数没有返回对象，则返回**this**。
 
-### 创建一个用户自定义的对象需要两步：
+### 创建一个用户自定义的对象需要两步
 
 1. 通过编写函数来定义对象类型。
 2. 通过 new 来创建对象实例。
@@ -1163,14 +1161,14 @@ console.log(car2.color); // original color
 
 ```js
 function mynew(Func, ...args) {
-  // 1.创建一个新对象
-  const obj = {};
-  // 2.新对象原型指向构造函数原型对象
-  obj.__proto__ = Func.prototype;
-  // 3.将构建函数的this指向新对象
-  let result = Func.apply(obj, args);
-  // 4.根据返回值判断
-  return result instanceof Object ? result : obj;
+ // 1.创建一个新对象
+ const obj = {};
+ // 2.新对象原型指向构造函数原型对象
+ obj.__proto__ = Func.prototype;
+ // 3.将构建函数的this指向新对象
+ let result = Func.apply(obj, args);
+ // 4.根据返回值判断
+ return result instanceof Object ? result : obj;
 }
 ```
 
@@ -1178,17 +1176,17 @@ function mynew(Func, ...args) {
 
 ```js
 function mynew(func, ...args) {
-  const obj = {};
-  obj.__proto__ = func.prototype;
-  let result = func.apply(obj, args);
-  return result instanceof Object ? result : obj;
+ const obj = {};
+ obj.__proto__ = func.prototype;
+ let result = func.apply(obj, args);
+ return result instanceof Object ? result : obj;
 }
 function Person(name, age) {
-  this.name = name;
-  this.age = age;
+ this.name = name;
+ this.age = age;
 }
 Person.prototype.say = function () {
-  console.log(this.name);
+ console.log(this.name);
 };
 
 let p = mynew(Person, "leeSin", 123);
@@ -1198,9 +1196,9 @@ p.say(); // leeSin
 
 > 引用地址
 >
-> https://vue3js.cn/interview/JavaScript/new.html
+> <https://vue3js.cn/interview/JavaScript/new.html>
 >
-> https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new
+> <https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new>
 
 ## JS 原型，原型链？{#prototype-chain}
 
@@ -1216,11 +1214,11 @@ p.say(); // leeSin
 
 ```js
 function Students(name, age) {
-  this.name = name;
-  this.age = age;
+ this.name = name;
+ this.age = age;
 }
 Students.prototype.hobby = function (love = "study") {
-  console.log(`I like ${love}`);
+ console.log(`I like ${love}`);
 };
 console.log(Students === Students.prototype.constructor); // true
 console.log(Students.prototype);
