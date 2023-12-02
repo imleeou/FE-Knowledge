@@ -18,8 +18,8 @@
 
 ## [nrm 的安装与使用](./nrm.md)
 
-## [MarkDown 官方教程 🔗](https://markdown.com.cn/)
+## [🔗 MarkDown 官方教程](https://markdown.com.cn/)
 
-## [ES6 入门教程-阮一峰 🔗](https://es6.ruanyifeng.com/)
+## [🔗 ES6 入门教程-阮一峰](https://es6.ruanyifeng.com/)
 
-## [NodeJs 中文网 🔗](http://nodejs.cn/)
+## [🔗 NodeJs 中文网](http://nodejs.cn/)
