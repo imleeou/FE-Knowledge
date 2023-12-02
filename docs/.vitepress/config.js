@@ -18,7 +18,7 @@ export default {
 		nav: [
 			{
 				text: "首页",
-				link: "/"
+				link: "/",
 			},
 			{
 				text: "必备知识",

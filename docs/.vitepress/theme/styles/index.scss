@@ -1,0 +1,18 @@
+@import "./variables.scss";
+@import "./overrides.scss";
+
+// 设置滚动条
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+// 滑块
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: var(--vp-c-brand-transparent);
+}
+//  滚动条的轨道部分，滑块以外的背景。
+::-webkit-scrollbar-track {
+	border-radius: 10px;
+	background-color: #f1f1f1;
+}
