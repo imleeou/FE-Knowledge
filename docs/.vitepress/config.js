@@ -9,6 +9,7 @@ export default {
 	themeConfig: {
 		logo: "/fe-icon.png",
 		lastUpdatedText: "最近更新时间",
+		returnToTopLabel: '返回顶部',
 		algolia: {
 			appId: "QDTCGPKDK2",
 			apiKey: "4c8a22cb8d40de818d3acf3566eadb55",
