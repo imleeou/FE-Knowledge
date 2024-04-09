@@ -40,6 +40,10 @@
 - [new 运算符是什么？做了什么？](./javaScript#new)
 - [JS 原型，原型链？](./javaScript#prototype-chain)
 
+## [TypeScript 相关](./typeScript)
+
+- [TypeScript 有哪些常见工具类型？](./typeScript#ts-tool-type)
+
 ## [Vue2 相关](./vue2)
 
 - [v-if 和 v-show 的区别](./vue2#v-if-and-v-show-difference)
