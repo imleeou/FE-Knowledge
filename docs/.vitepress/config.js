@@ -86,6 +86,10 @@ export default {
 							link: "/interviewQuestion/javaScript"
 						},
 						{
+							text: "TypeScript相关",
+							link: "/interviewQuestion/typeScript"
+						},
+						{
 							text: "Vue2相关",
 							link: "/interviewQuestion/vue2"
 						},
