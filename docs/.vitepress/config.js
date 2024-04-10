@@ -46,6 +46,10 @@ export default {
 							link: "/necessary/codeSpecification"
 						},
 						{
+							text: "git的使用",
+							link: "/necessary/git"
+						},
+						{
 							text: "nrm 的安装与使用",
 							link: "/necessary/nrm"
 						},
