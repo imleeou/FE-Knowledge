@@ -1,4 +1,4 @@
-# git的使用
+# Git 的使用
 
 ## 修改commit信息{#modify-commit-message}
 
@@ -25,7 +25,9 @@ git commit --amend -m "new commit message"
 ## 如何合并杂乱的commit messages{#merge-messy-commit-messages}
 >
 > feat: commit 3 (7a4f3b0324a31fc0b449ec21fc924212569b61dc)
+>
 > feat: commit 2 (8b2adef5948e57271f02987afbcbfa4606bd6503)
+>
 > feat: commit 1 (2676c9f0f40f1a2b793175acf1b88093a700072a)
 
 如上所示，有三条commit messages，它们实现的功能是相同的，后两条可能仅仅是修改了一行的样式，或一点点逻辑上的修改，但却被分成了三条commit messages。

@@ -46,7 +46,7 @@ export default {
 							link: "/necessary/codeSpecification"
 						},
 						{
-							text: "git的使用",
+							text: "Git 的使用",
 							link: "/necessary/git"
 						},
 						{

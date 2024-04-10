@@ -16,7 +16,7 @@
 
 ## [代码提交规范](./codeSpecification.md)
 
-## [git的使用](./git.md)
+## [Git 的使用](./git.md)
 
 ## [nrm 的安装与使用](./nrm.md)
 
